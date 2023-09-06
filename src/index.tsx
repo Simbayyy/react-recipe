@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './static/index.css';
+import './static/App.css';
 import Home from './components/Home';
 import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter,

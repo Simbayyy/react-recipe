@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const jsx_runtime_1 = require("react/jsx-runtime");
 const client_1 = __importDefault(require("react-dom/client"));
 require("./static/index.css");
+require("./static/App.css");
 const Home_1 = __importDefault(require("./components/Home"));
 const reportWebVitals_1 = __importDefault(require("./reportWebVitals"));
 const react_router_dom_1 = require("react-router-dom");

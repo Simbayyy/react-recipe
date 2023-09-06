@@ -1,4 +1,3 @@
-import '../static/App.css';
 import { FC, useEffect, useState } from 'react';
 import { Recipe } from '../functions/types';
 import { RecipeCard } from './RecipeCard';
@@ -27,7 +26,7 @@ const Home: React.FunctionComponent =  (): React.ReactElement => {
       let dataComponents = data.recipes.filter((elt) => {return elt.name != ""}).map((element, index) => {
         return RecipeCard({recipe:element, index:index})
       }); 
-      return <div>
+      return <div className="home__recipes">
         {dataComponents}
       </div>
   
@@ -36,10 +35,8 @@ const Home: React.FunctionComponent =  (): React.ReactElement => {
     }
   }
   return (
-    <div className="App">
-      <header className="App-header">
-        {showRecipes(data)}
-      </header>
+    <div className="home">
+      {showRecipes(data)}
       <Outlet context={data}/>
     </div>
   );
