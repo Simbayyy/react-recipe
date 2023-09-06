@@ -2,6 +2,7 @@ import '../static/App.css';
 import { FC, useEffect, useState } from 'react';
 import { Recipe } from '../functions/types';
 import { RecipeCard } from './RecipeCard';
+import { Outlet } from 'react-router-dom';
 
 const Home: React.FunctionComponent =  (): React.ReactElement => {
 
@@ -39,6 +40,7 @@ const Home: React.FunctionComponent =  (): React.ReactElement => {
       <header className="App-header">
         {showRecipes(data)}
       </header>
+      <Outlet context={data}/>
     </div>
   );
 }

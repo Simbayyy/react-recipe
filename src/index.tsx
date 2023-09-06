@@ -8,6 +8,7 @@ import { createBrowserRouter,
   RouterProvider,
   Route,
   Link, } from 'react-router-dom'
+import { Recipe } from './components/Recipe';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -15,7 +16,12 @@ const router = createBrowserRouter(
       path="/" 
       element={<Home />}
     >
+      <Route 
+        path=":recipeId"  
+        element={<Recipe />}
+      />
     </Route>
+
 
   ));
 
