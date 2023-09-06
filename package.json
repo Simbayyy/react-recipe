@@ -12,14 +12,18 @@
     "@types/react-dom": "^18.2.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.15.0",
     "react-scripts": "5.0.1",
     "typescript": "^5.2.2",
     "web-vitals": "^2.1.4"
   },
+  "overrides": {
+    "typescript": "^5.2.2"
+  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "export REACT_APP_DOMAIN='http://localhost:3000' && export PORT=3001 && export WATCHPACK_POLLING=true && tsc && react-scripts start",
+    "build": "tsc && react-scripts build",
+    "test": "tsc && react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

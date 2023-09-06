@@ -1,14 +1,15 @@
-import './App.css';
-import { useEffect, useState } from 'react';
-import { Recipe } from './types';
+import '../static/App.css';
+import { FC, useEffect, useState } from 'react';
+import { Recipe } from '../functions/types';
+import { RecipeCard } from './RecipeCard';
 
-function App() {
+const App: React.FunctionComponent =  (): React.ReactElement => {
 
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/recipes')
+    fetch(`${process.env.REACT_APP_DOMAIN ? 'http://localhost:3000' : ''}/api/recipes`)
       .then((res) => res.json())
       .then((res) => {
         setData(res);
@@ -22,15 +23,15 @@ function App() {
   
   function showRecipes (data: null | {recipes:Recipe[]}) {
     if (data) {
-      let dataComponents = data.recipes.map((element, index) => {
-        return <div>Hello {index}</div>
+      let dataComponents = data.recipes.filter((elt) => {return elt.name != ""}).map((element, index) => {
+        return RecipeCard({recipe:element, index:index})
       }); 
       return <div>
         {dataComponents}
       </div>
   
     } else {
-      return <div>No recipe</div>
+      return <div>Loading from {process.env.keys}...</div>
     }
   }
   return (
