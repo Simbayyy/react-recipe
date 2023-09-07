@@ -1,43 +1,14 @@
-import { FC, useEffect, useState } from 'react';
-import { Recipe } from '../functions/types';
-import { RecipeCard } from './RecipeCard';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 
 const Home: React.FunctionComponent =  (): React.ReactElement => {
 
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  
-  useEffect(() => {
-    fetch(`${process.env.REACT_APP_DOMAIN ? 'http://localhost:3000' : ''}/api/recipes`)
-      .then((res) => res.json())
-      .then((res) => {
-        setData(res);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-        setLoading(false);
-      });
-  }, []); // Empty dependency array ensures this effect runs only once on mount  
-  function showRecipes (data: null | {recipes:Recipe[]}) {
-    if (data) {
-      let dataComponents = data.recipes.filter((elt) => {return elt.name != ""}).map((element, index) => {
-        return RecipeCard({recipe:element, index:index})
-      }); 
-      return <div className="home__recipes">
-        {dataComponents}
-      </div>
-  
-    } else {
-      return <div>Loading from {process.env.keys}...</div>
-    }
-  }
-  return (
-    <div className="home">
-      {showRecipes(data)}
-      <Outlet context={data}/>
+    return (
+    <div className='home'>
+        <div className='home__header'>
+            <div className='home__header__title'>Ceci est un site, ici est son logo</div>
+            <Link to="recipes" className='home__header__torecipes'> Accueil recettes </Link>
+        </div>
+        <Outlet /> 
     </div>
   );
 }

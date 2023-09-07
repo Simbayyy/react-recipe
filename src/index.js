@@ -7,11 +7,12 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const client_1 = __importDefault(require("react-dom/client"));
 require("./static/index.css");
 require("./static/App.css");
-const Home_1 = __importDefault(require("./components/Home"));
+const RecipeList_1 = __importDefault(require("./components/RecipeList"));
 const reportWebVitals_1 = __importDefault(require("./reportWebVitals"));
 const react_router_dom_1 = require("react-router-dom");
 const Recipe_1 = require("./components/Recipe");
-const router = (0, react_router_dom_1.createBrowserRouter)((0, react_router_dom_1.createRoutesFromElements)((0, jsx_runtime_1.jsx)(react_router_dom_1.Route, { path: "/", element: (0, jsx_runtime_1.jsx)(Home_1.default, {}), children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Route, { path: ":recipeId", element: (0, jsx_runtime_1.jsx)(Recipe_1.Recipe, {}) }) })));
+const Home_1 = __importDefault(require("./components/Home"));
+const router = (0, react_router_dom_1.createBrowserRouter)((0, react_router_dom_1.createRoutesFromElements)((0, jsx_runtime_1.jsx)(react_router_dom_1.Route, { path: "/", element: (0, jsx_runtime_1.jsx)(Home_1.default, {}), children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Route, { path: "recipes", element: (0, jsx_runtime_1.jsx)(RecipeList_1.default, {}), children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Route, { path: ":recipeId", element: (0, jsx_runtime_1.jsx)(Recipe_1.Recipe, {}) }) }) })));
 const root = client_1.default.createRoot(document.getElementById("root"));
 root.render((0, jsx_runtime_1.jsx)(react_router_dom_1.RouterProvider, { router: router }));
 // If you want to start measuring performance in your app, pass a function

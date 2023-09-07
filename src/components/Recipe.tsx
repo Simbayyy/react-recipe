@@ -24,16 +24,16 @@ export const Recipe: React.FunctionComponent<{}> =  (): React.ReactElement => {
 
     function displayRecipe(recipe: undefined | RecipeType) {
         if (recipe) {
-            return <div className="home__recipes__recipe">
-                <div className="home__recipes__recipe__title">{recipe.name}</div>
-                <a href={recipe.url} target="_blank" className="home__recipes__recipe__link">{recipe.url}</a>
-                <div className="home__recipes__recipe__summary">
+            return <div className="content__recipes__recipe">
+                <div className="content__recipes__recipe__title">{recipe.name}</div>
+                <a href={recipe.url} target="_blank" className="content__recipes__recipe__link">{recipe.url}</a>
+                <div className="content__recipes__recipe__summary">
                     {recipe.ingredients.length} ingrédient{recipe.ingredients.length > 1 ? "s": ""}, {`${recipe.time.time} ${recipe.time.unit}`}
                 </div>
                 {renderIngredients(recipe.ingredients)}
              </div>
         } else {
-            return <div className="home__recipes__recipe">Recipe {recipeId} loading... </div>
+            return <div className="content__recipes__recipe">Recipe {recipeId} loading... </div>
         }    
     }
 
