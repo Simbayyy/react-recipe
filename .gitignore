@@ -9,10 +9,11 @@
 /coverage
 
 # production
-/build
+/dist
 
 # compiled TS files
 *.js
+*.jsx
 
 # misc
 .DS_Store

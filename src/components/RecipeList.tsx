@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
-import { Recipe } from '../functions/types';
-import { RecipeCard } from './RecipeCard';
+import {RecipeType} from '../functions/types';
+import {RecipeCard} from './RecipeCard';
 import { Outlet, useOutlet } from 'react-router-dom';
 
 const RecipeList: React.FunctionComponent =  (): React.ReactElement => {
@@ -12,7 +12,7 @@ const RecipeList: React.FunctionComponent =  (): React.ReactElement => {
   let placeholder = <div className="content__recipes__recipe">Clique sur une recette pour en voir les détails</div>
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_DOMAIN ? 'http://localhost:3000' : ''}/api/recipes`)
+    fetch(`${import.meta.env.VITE_DOMAIN ? 'http://localhost:3000' : ''}/api/recipes`)
       .then((res) => res.json())
       .then((res) => {
         setData(res);
@@ -23,7 +23,7 @@ const RecipeList: React.FunctionComponent =  (): React.ReactElement => {
         setLoading(false);
       });
   }, []); // Empty dependency array ensures this effect runs only once on mount  
-  function showRecipes (data: null | {recipes:Recipe[]}) {
+  function showRecipes (data: null | {recipes:RecipeType[]}) {
     if (data) {
       let dataComponents = data.recipes.filter((elt) => {return elt.name != ""}).map((element, index) => {
         return RecipeCard({recipe:element, index:index})
@@ -33,7 +33,7 @@ const RecipeList: React.FunctionComponent =  (): React.ReactElement => {
       </div>
   
     } else {
-      return <div className="content__recipes">Loading from {process.env.keys}...</div>
+      return <div className="content__recipes">Loading from {import.meta.env.keys}...</div>
     }
   }
   return (
@@ -44,4 +44,4 @@ const RecipeList: React.FunctionComponent =  (): React.ReactElement => {
   );
 }
 
-export default RecipeList;
+export { RecipeList }
