@@ -26,7 +26,7 @@
   },
   "scripts": {
     "start": "vite",
-    "build": "tsc && vite build",
+    "build": "export VITE_DOMAIN='build' && tsc && vite build",
     "serve": "vite preview"
   },
   "eslintConfig": {

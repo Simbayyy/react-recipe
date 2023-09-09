@@ -12,7 +12,7 @@ const RecipeList: React.FunctionComponent =  (): React.ReactElement => {
   let placeholder = <div className="content__recipes__recipe">Clique sur une recette pour en voir les détails</div>
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_DOMAIN ? 'http://localhost:3000' : ''}/api/recipes`)
+    fetch(`${import.meta.env.VITE_DOMAIN != 'build' ? 'http://localhost:3000' : ''}/api/recipes`)
       .then((res) => res.json())
       .then((res) => {
         setData(res);
