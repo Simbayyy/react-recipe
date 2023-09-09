@@ -13,6 +13,7 @@
 
 # compiled TS files
 *.js
+*.jsx
 
 # misc
 .DS_Store

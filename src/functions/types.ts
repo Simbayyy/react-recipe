@@ -12,7 +12,7 @@ export interface Ingredient {
     high_confidence?:boolean
 }
 
-export interface Recipe {
+export interface RecipeType {
     name: string,
     url: string,
     time: Time,
@@ -20,8 +20,8 @@ export interface Recipe {
     id?: number
 }
 
-export function isRecipe(recipe: Recipe | object): recipe is Recipe {
-    const recipeAs = recipe as Recipe
+export function isRecipe(recipe: RecipeType | object): recipe is RecipeType {
+    const recipeAs = recipe as RecipeType
     return ((recipeAs.name !== undefined) && (typeof(recipeAs.name) == 'string')
             && (recipeAs.url !== undefined) && (typeof(recipeAs.url) == 'string')
             && (recipeAs.time !== undefined) 

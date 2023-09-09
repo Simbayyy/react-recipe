@@ -1,10 +1,9 @@
 import { useParams, useOutletContext } from "react-router-dom"
-import { Recipe as RecipeType, Ingredient as IngredientType}  from "../functions/types"
-import { Ingredient } from "./Ingredient"
+import { RecipeType, Ingredient as IngredientType}  from "../functions/types"
+import {Ingredient} from "./Ingredient"
 import { useEffect, useState } from "react"
 
-
-export const Recipe: React.FunctionComponent<{}> =  (): React.ReactElement => {
+const Recipe: React.FunctionComponent<{}> =  (): React.ReactElement => {
     let {recipeId} = useParams()
     let data: null | {recipes:RecipeType[]} = useOutletContext()
 
@@ -39,3 +38,5 @@ export const Recipe: React.FunctionComponent<{}> =  (): React.ReactElement => {
 
     return displayRecipe(recipe)
 }
+
+export {Recipe}

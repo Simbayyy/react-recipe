@@ -1,6 +1,6 @@
 import { Link, Outlet } from 'react-router-dom';
 
-const Home: React.FunctionComponent =  (): React.ReactElement => {
+export const Home: React.FunctionComponent =  (): React.ReactElement => {
 
     return (
     <div className='home'>
@@ -12,5 +12,3 @@ const Home: React.FunctionComponent =  (): React.ReactElement => {
     </div>
   );
 }
-
-export default Home;

@@ -10,21 +10,24 @@
     "@types/node": "^20.5.9",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
+    "@vitejs/plugin-react-swc": "^3.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.15.0",
     "react-scripts": "5.0.1",
     "typescript": "^5.2.2",
+    "vite": "^4.4.9",
+    "vite-plugin-svgr": "^3.2.0",
+    "vite-tsconfig-paths": "^4.2.0",
     "web-vitals": "^2.1.4"
   },
   "overrides": {
     "typescript": "^5.2.2"
   },
   "scripts": {
-    "start": "export REACT_APP_DOMAIN='http://localhost:3000' && export PORT=3001 && export WATCHPACK_POLLING=true && tsc && react-scripts start",
-    "build": "tsc && react-scripts build",
-    "test": "tsc && react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "vite",
+    "build": "tsc && vite build",
+    "serve": "vite preview"
   },
   "eslintConfig": {
     "extends": [
