@@ -9,7 +9,7 @@
 /coverage
 
 # production
-/build
+/dist
 
 # compiled TS files
 *.js
