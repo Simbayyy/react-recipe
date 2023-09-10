@@ -10,6 +10,8 @@ import { createBrowserRouter,
   Link, } from 'react-router-dom'
 import {Recipe} from './components/Recipe';
 import {Home} from './components/Home';
+import { LoginView } from './components/LoginView';
+import { SignupView } from './components/SignupView';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,6 +27,16 @@ const router = createBrowserRouter(
           path=":recipeId"  
           element={<Recipe />}
         />
+      </Route>
+      <Route 
+        path="login" 
+        element={<LoginView />}
+      >
+      </Route>
+      <Route 
+        path="signup" 
+        element={<SignupView />}
+      >
       </Route>
     </Route>
 

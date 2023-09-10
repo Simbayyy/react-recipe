@@ -11,6 +11,7 @@
   background-color: rgb(192, 194, 90);
   text-decoration: none;
   border-radius: 5%;
+  margin: 0px 10px;
 }
 
 .home__header__torecipes:hover {
