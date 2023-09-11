@@ -27,7 +27,7 @@
   },
   "scripts": {
     "start": "tsc && vite",
-    "build": "export VITE_DOMAIN='build' && tsc && vite build",
+    "build": "export VITE_DOMAIN='build' && tsc && vite build && rm ../noderecipes/dist/react -rf && cp -r dist/ ../noderecipes/dist/react/ ",
     "serve": "vite preview"
   },
   "eslintConfig": {

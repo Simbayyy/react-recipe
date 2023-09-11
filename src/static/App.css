@@ -6,15 +6,16 @@
   height: 100vh;
 }
 
-.home__header__torecipes {
+.home__header__link,.home__header__nolink {
   padding: 10px;
   background-color: rgb(192, 194, 90);
   text-decoration: none;
   border-radius: 5%;
   margin: 0px 10px;
+  color: #333333;
 }
 
-.home__header__torecipes:hover {
+.home__header__link:hover {
   background-color: rgb(121, 122, 67);
 }
 

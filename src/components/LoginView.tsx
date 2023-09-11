@@ -2,11 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from "react-cookie";
 
-export const LoginView: React.FunctionComponent =  (): React.ReactElement => {
+export function LoginView(props:{userSetter:React.Dispatch<React.SetStateAction<string>>}): React.ReactElement {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [authenticated, setAuthenticated] = useState(false)
-    const [cookies, setCookie] = useCookies(['user']);
 
     let [result, setResult] = useState("nothing sent")
   
@@ -16,7 +14,7 @@ export const LoginView: React.FunctionComponent =  (): React.ReactElement => {
         fetch(`${import.meta.env.VITE_DOMAIN != 'build' ? 'http://localhost:3000' : ''}/api/check-auth`)
       .then((response) => response.json())
       .then((data) => {
-        setAuthenticated(data.authenticated); // Update the state based on the response
+        props.userSetter(data.username); // Update the state based on the response
 
       })
       .catch((error) => {
@@ -46,9 +44,9 @@ export const LoginView: React.FunctionComponent =  (): React.ReactElement => {
         let url = `${import.meta.env.VITE_DOMAIN != 'build' ? 'http://localhost:3000' : ''}/login/password`
         try {
             const response = await fetch(url, request)
-
+            const responsejson = await response.json()
             if (response.ok) {
-                setCookie("user",response.headers.get('Set-Cookie'))
+                props.userSetter(responsejson.username ?? "")
                 navigate('/')
             } else {
                 setResult(`Nom d'utilisateur ou mot de passe inconnu`)
@@ -86,7 +84,6 @@ export const LoginView: React.FunctionComponent =  (): React.ReactElement => {
             <button type="submit">Login</button>
           </div>
         </form>
-        <button onClick={checkAuth}>{authenticated ? 'true' : 'false'}</button>
       </div>
     );
   }
