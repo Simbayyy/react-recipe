@@ -57,7 +57,7 @@ export function LoginView(props:{userSetter:React.Dispatch<React.SetStateAction<
 };
   
     return (
-      <div>
+      <div className='login__box'>
         <div>{result}</div>
         <form onSubmit={handleSubmit}>
           <div>

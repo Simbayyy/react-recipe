@@ -7,17 +7,15 @@ import { Recipe } from "./Recipe";
 import { RecipeList } from "./RecipeList";
 import { SignupView } from "./SignupView";
 
-
-
 export function App (): React.ReactElement {
     
     const [user, setUser] = useState("")
 
     const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route
+      [<Route
         path="/"
-        element={<Home user={user}/>}  
+        element={<Home user={user} setUser={setUser}/>}  
       >
         <Route 
           path="recipes" 
@@ -28,17 +26,17 @@ export function App (): React.ReactElement {
             element={<Recipe />}
           />
         </Route>
-        <Route 
-          path="login" 
-          element={<LoginView userSetter={setUser} />}
-        >
-        </Route>
-        <Route 
-          path="signup" 
-          element={<SignupView />}
-        >
-        </Route>
-      </Route>
+      </Route>,
+      <Route 
+        path="/login" 
+        element={<SignupView userSetter={setUser} />}
+      >
+      </Route>,
+      <Route 
+        path="/signup" 
+        element={<SignupView userSetter={setUser} />}
+      >
+      </Route>]
     ));
   
     return <RouterProvider router={router} />
