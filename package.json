@@ -12,6 +12,7 @@
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react-swc": "^3.3.2",
     "react": "^18.2.0",
+    "react-cookie": "^6.1.1",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.15.0",
     "react-scripts": "5.0.1",
@@ -25,8 +26,8 @@
     "typescript": "^5.2.2"
   },
   "scripts": {
-    "start": "vite",
-    "build": "export VITE_DOMAIN='build' && tsc && vite build",
+    "start": "tsc && vite",
+    "build": "export VITE_DOMAIN='build' && tsc && vite build && rm ../noderecipes/dist/react -rf && cp -r dist/ ../noderecipes/dist/react/ ",
     "serve": "vite preview"
   },
   "eslintConfig": {
