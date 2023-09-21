@@ -8,6 +8,7 @@ html {
   flex-direction: column;
   width:100vw;
   height: 100vh;
+  font-size: 2rem;
 }
 
 .home__header__link,.home__header__nolink {
@@ -23,7 +24,6 @@ html {
   background-color: rgb(121, 122, 67);
   cursor: pointer;
 }
-
 
 .home__header__title {
   font-weight: bold;
@@ -63,7 +63,7 @@ html {
 .login__form__field>input {
   width: 30rem;
   padding: 0.5rem;
-  margin: 0.5rem 0 1rem 0;
+  margin: 0.5rem 0 0.5rem 0;
   border-radius: 0.4rem;
   border-style: none;
   border-left: blue solid 0.2rem;
@@ -93,9 +93,29 @@ html {
   font-weight: bold;
 }
 
+.login__form__field__error>input {
+  border: red 0.2rem solid;
+}
+
+.login__form__error {
+  flex: 0;
+  width: 30rem;
+  font-style: italic;
+  color: red;
+  text-align: center;
+  padding: 0.3rem 0;
+}
+
 .login__send:hover {
   background-color: rgb(115, 167, 216);
   cursor: pointer;
+}
+
+.login__form__password__criteria {
+  color: #444;
+  font-style: italic;
+  font-size: 1.4rem;
+  padding-bottom: 0.5rem;
 }
 
 .content {

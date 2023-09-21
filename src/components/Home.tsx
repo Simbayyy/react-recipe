@@ -1,4 +1,5 @@
 import { Link, Outlet } from 'react-router-dom';
+
 export const Home: React.FunctionComponent<{user:string,setUser:React.Dispatch<React.SetStateAction<string>>}> =
     ({user, setUser}): React.ReactElement => {
 
