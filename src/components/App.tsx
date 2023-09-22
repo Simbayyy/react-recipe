@@ -11,6 +11,24 @@ export function App (): React.ReactElement {
     
     const [user, setUser] = useState("")
 
+    async function checkAuth () {
+      let url = `${import.meta.env.VITE_DOMAIN != 'build' ? 'http://localhost:3000' : ''}/api/check-auth`
+      try {
+          const response = await fetch(url)
+          const responsejson = await response.json()
+  
+          if (response.ok) {
+              setUser(responsejson.user ?? "")
+          } else {
+              console.error('Could not fetch user')
+          }
+      } catch (error) {
+          console.error(`An error occurred: ${error}`)
+      }  
+    }
+
+    checkAuth()
+
     const router = createBrowserRouter(
     createRoutesFromElements(
       [<Route
