@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom/client';
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
 import { Home } from "./Home";
-import { LoginView } from "./LoginView";
 import { Recipe } from "./Recipe";
 import { RecipeList } from "./RecipeList";
 import { SignupView } from "./SignupView";
+import { AdminDashboard } from './AdminDashboard';
+import { ErrorView } from './ErrorView';
 
 export function App (): React.ReactElement {
     
     const [user, setUser] = useState("")
+    const [admin, setAdmin] = useState(false)
 
     async function checkAuth () {
       let url = `${import.meta.env.VITE_DOMAIN != 'build' ? 'http://localhost:3000' : ''}/api/check-auth`
@@ -33,7 +34,7 @@ export function App (): React.ReactElement {
     createRoutesFromElements(
       [<Route
         path="/"
-        element={<Home user={user} setUser={setUser}/>}  
+        element={<Home user={user} admin={admin} setUser={setUser}/>}  
       >
         <Route 
           path="recipes" 
@@ -44,15 +45,20 @@ export function App (): React.ReactElement {
             element={<Recipe />}
           />
         </Route>
+        <Route 
+            path="admin"  
+            element={admin ? <AdminDashboard /> : <ErrorView errorCode={"unauthorized"} />}
+          >
+        </Route>
       </Route>,
       <Route 
         path="/login" 
-        element={<SignupView userSetter={setUser} />}
+        element={<SignupView userSetter={setUser} adminSetter={setAdmin} />}
       >
       </Route>,
       <Route 
         path="/signup" 
-        element={<SignupView userSetter={setUser} />}
+        element={<SignupView userSetter={setUser} adminSetter={setAdmin} />}
       >
       </Route>]
     ));

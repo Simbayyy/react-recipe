@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate, matchPath } from 'react-router-dom';
 
-export function SignupView(props:{userSetter:React.Dispatch<React.SetStateAction<string>>}): React.ReactElement {
+export function SignupView(props:{
+      userSetter:React.Dispatch<React.SetStateAction<string>>,
+      adminSetter:React.Dispatch<React.SetStateAction<boolean>>
+    }): React.ReactElement {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -54,6 +57,7 @@ export function SignupView(props:{userSetter:React.Dispatch<React.SetStateAction
 
             if (response.ok) {
                 props.userSetter(responsejson.username ?? "")
+                props.adminSetter(responsejson.admin ?? false)
                 navigate('/')
             } else {
                 setErrorCode(responsejson.code)
