@@ -20,6 +20,7 @@ export function App (): React.ReactElement {
   
           if (response.ok) {
               setUser(responsejson.user ?? "")
+              setAdmin(responsejson.admin ?? false)
           } else {
               console.error('Could not fetch user')
           }
@@ -47,7 +48,8 @@ export function App (): React.ReactElement {
         </Route>
         <Route 
             path="admin"  
-            element={admin ? <AdminDashboard /> : <ErrorView errorCode={"unauthorized"} />}
+            element={<AdminDashboard />// : <ErrorView errorCode={"unauthorized"} />
+          }
           >
         </Route>
       </Route>,
