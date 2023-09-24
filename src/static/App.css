@@ -1,13 +1,15 @@
 html {
 	font-size: 62.5%;
+  display: flex;
 }
 
 .home {
+  flex: auto;
   background-color: antiquewhite;
   display: flex;
   flex-direction: column;
   width:100vw;
-  height: 100vh;
+  min-height: 100vh;
   font-size: 2rem;
 }
 
@@ -40,7 +42,7 @@ html {
 
 .admin__dashboard__buttons {
   display: flex;
-  overflow: scroll;
+  overflow-x: auto;
   scrollbar-width: thin;
 }
 
@@ -79,6 +81,18 @@ html {
   height: 100vh;
   width: 100vw;
   background-color: aquamarine;
+}
+
+.ingredient__cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.ingredient__card {
+  background-color: aqua;
+  padding: 1rem;
+  margin: 1rem;
 }
 
 .login__box {

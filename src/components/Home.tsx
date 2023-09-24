@@ -1,16 +1,24 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 
 export const Home: React.FunctionComponent<
         {
             user:string,
             admin:boolean,
-            setUser:React.Dispatch<React.SetStateAction<string>>
-        }> = ({user, admin, setUser}): React.ReactElement => {
+            setUser:React.Dispatch<React.SetStateAction<string>>,
+            setAdmin:React.Dispatch<React.SetStateAction<boolean>>,            
+        }> = ({user, admin, setUser, setAdmin}): React.ReactElement => {
+
+
+    const navigate = useNavigate()
 
     const logout = () => {
         fetch(`${import.meta.env.VITE_DOMAIN != 'build' ? 'http://localhost:3000' : ''}/login/logout`,
         {method:'POST'})
-            .then(() => setUser(""))
+            .then(() => {
+                setUser("")
+                setAdmin(false)
+                navigate("/")
+            })
             .catch(()=> console.error("Rejected logout"))
     }
 
