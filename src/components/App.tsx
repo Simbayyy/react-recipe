@@ -1,39 +1,36 @@
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom/client';
+import React, { useEffect, useState } from 'react';
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
 import { Home } from "./Home";
-import { LoginView } from "./LoginView";
 import { Recipe } from "./Recipe";
 import { RecipeList } from "./RecipeList";
 import { SignupView } from "./SignupView";
+import { AdminDashboard } from './AdminDashboard';
+import { ErrorView } from './ErrorView';
+import { IngredientList } from './IngredientList';
 
 export function App (): React.ReactElement {
     
     const [user, setUser] = useState("")
+    const [admin, setAdmin] = useState(false)
 
-    async function checkAuth () {
+    useEffect(() => {
       let url = `${import.meta.env.VITE_DOMAIN != 'build' ? 'http://localhost:3000' : ''}/api/check-auth`
-      try {
-          const response = await fetch(url)
-          const responsejson = await response.json()
-  
-          if (response.ok) {
-              setUser(responsejson.user ?? "")
-          } else {
-              console.error('Could not fetch user')
-          }
-      } catch (error) {
-          console.error(`An error occurred: ${error}`)
-      }  
-    }
-
-    checkAuth()
+      fetch(url)
+        .then((response) => response.json())
+        .then((response) => {
+            setUser(response.user ?? "")
+            setAdmin(response.admin ?? false)
+        })
+        .catch((error) => {
+      console.error(`An error occurred: ${error}`)
+      } )
+    }, [])
 
     const router = createBrowserRouter(
     createRoutesFromElements(
       [<Route
         path="/"
-        element={<Home user={user} setUser={setUser}/>}  
+        element={<Home user={user} admin={admin} setUser={setUser} setAdmin={setAdmin}/>}  
       >
         <Route 
           path="recipes" 
@@ -44,15 +41,29 @@ export function App (): React.ReactElement {
             element={<Recipe />}
           />
         </Route>
+        <Route 
+          path="admin"  
+          element={admin ? <AdminDashboard /> : <ErrorView errorCode={"unauthorized"} />
+          }
+        >
+            <Route 
+              path="ingredients"
+              element={<IngredientList />}
+            />
+            <Route 
+              path="low-confidence"
+              element={<IngredientList />}
+            />
+        </Route>
       </Route>,
       <Route 
         path="/login" 
-        element={<SignupView userSetter={setUser} />}
+        element={<SignupView userSetter={setUser} adminSetter={setAdmin} />}
       >
       </Route>,
       <Route 
         path="/signup" 
-        element={<SignupView userSetter={setUser} />}
+        element={<SignupView userSetter={setUser} adminSetter={setAdmin} />}
       >
       </Route>]
     ));
