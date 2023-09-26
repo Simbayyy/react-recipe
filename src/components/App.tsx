@@ -14,7 +14,7 @@ export function App (): React.ReactElement {
     const [admin, setAdmin] = useState(false)
 
     useEffect(() => {
-      let url = `${import.meta.env.VITE_DOMAIN != 'build' ? 'http://localhost:3000' : ''}/api/check-auth`
+      const url = `${import.meta.env.VITE_DOMAIN != 'build' ? 'http://localhost:3000' : ''}/api/check-auth`
       fetch(url)
         .then((response) => response.json())
         .then((response) => {
@@ -29,6 +29,7 @@ export function App (): React.ReactElement {
     const router = createBrowserRouter(
     createRoutesFromElements(
       [<Route
+        key={1}
         path="/"
         element={<Home user={user} admin={admin} setUser={setUser} setAdmin={setAdmin}/>}  
       >
@@ -57,11 +58,13 @@ export function App (): React.ReactElement {
         </Route>
       </Route>,
       <Route 
+        key={2}
         path="/login" 
         element={<SignupView userSetter={setUser} adminSetter={setAdmin} />}
       >
       </Route>,
       <Route 
+        key={3}
         path="/signup" 
         element={<SignupView userSetter={setUser} adminSetter={setAdmin} />}
       >
