@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-
+import React from 'react'
 
 export const ErrorView: React.FunctionComponent<{
         errorCode:string
@@ -11,6 +11,6 @@ export const ErrorView: React.FunctionComponent<{
     }
     return <div>
         <div className="error__view__message">{message(errorCode)}</div>
-        <Link to={'/'}>Retour à l'accueil</Link>
+        <Link to={'/'}>Retour à l&apos;accueil</Link>
     </div>
 }

@@ -1,4 +1,5 @@
 import { Link, Outlet, useNavigate } from 'react-router-dom';
+import React from 'react'
 
 export const Home: React.FunctionComponent<
         {
@@ -22,14 +23,14 @@ export const Home: React.FunctionComponent<
             .catch(()=> console.error("Rejected logout"))
     }
 
-    const logInComponents = [<Link to="/" className='home__header__title'>Ceci est un site, ici est son logo</Link>,
-    <Link to="recipes" className='home__header__link'> Accueil recettes </Link>].concat(
-        user == "" ? [<Link to="/login" className='home__header__link'> Connexion </Link>,
-            <Link to="/signup" className='home__header__link'> Créer un compte </Link>,]
-        : [<div className='home__header__nolink'> Connecté·e en tant que {user} </div>,
-            <div className='home__header__link' onClick={logout}> Se déconnecter </div>]
+    const logInComponents = [<Link key={1} to="/" className='home__header__title'>Ceci est un site, ici est son logo</Link>,
+    <Link key={2} to="recipes" className='home__header__link'> Accueil recettes </Link>].concat(
+        user == "" ? [<Link key={3} to="/login" className='home__header__link'> Connexion </Link>,
+            <Link key={4} to="/signup" className='home__header__link'> Créer un compte </Link>,]
+        : [<div key={3} className='home__header__nolink'> Connecté·e en tant que {user} </div>,
+            <div key={4} className='home__header__link' onClick={logout}> Se déconnecter </div>]
         ).concat(
-            admin === true ? [<Link to="/admin" className='home__header__link'> Administration </Link>] : []
+            admin === true ? [<Link key={5} to="/admin" className='home__header__link'> Administration </Link>] : []
         )
 
     return (

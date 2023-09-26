@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react"
 import { Link, Outlet, useOutletContext } from "react-router-dom"
 import { IngredientRaw } from "../functions/types"
+import React from 'react'
 
-
-export const AdminDashboard: React.FunctionComponent<{}> =  (): React.ReactElement => {
+export const AdminDashboard: React.FunctionComponent<Record<string,never>> =  (): React.ReactElement => {
 
     const [ingredients, setIngredients] = useState<IngredientRaw[]>([])
     
     useEffect(() => {
-        let url = `${import.meta.env.VITE_DOMAIN != 'build' ? 'http://localhost:3000' : ''}/api/ingredients`
+        const url = `${import.meta.env.VITE_DOMAIN != 'build' ? 'http://localhost:3000' : ''}/api/ingredients`
         fetch(url)
           .then((response) => response.json())
           .then((response) => {

@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom"
 import { IngredientRaw } from "../functions/types"
 import { useIngredients } from "./AdminDashboard"
-
+import React from 'react'
 
 const IngredientCard: React.FunctionComponent<
         IngredientRaw

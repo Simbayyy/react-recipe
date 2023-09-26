@@ -27,30 +27,30 @@ export function SignupView(props:{
     const navigate = useNavigate()
 
     const handleUsernameChange = (e: React.SyntheticEvent) => {
-        let target = e.target as HTMLInputElement
+        const target = e.target as HTMLInputElement
         setUsername(target.value);
     };
   
     const handleEmailChange = (e: React.SyntheticEvent) => {
-        let target = e.target as HTMLInputElement
+        const target = e.target as HTMLInputElement
         setEmail(target.value);
     };
 
     const handlePasswordChange = (e: React.SyntheticEvent) => {
-        let target = e.target as HTMLInputElement
+        const target = e.target as HTMLInputElement
         setPassword(target.value)
     };
   
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault()
-        let request = {
+        const request = {
             headers: {
                 "Content-Type":"application/json",
             },
             method:'POST',
             body:JSON.stringify({ username, email, password})
         }
-        let url = `${import.meta.env.VITE_DOMAIN != 'build' ? 'http://localhost:3000' : ''}/login/${isLogin ? "password" :  "signup" }`
+        const url = `${import.meta.env.VITE_DOMAIN != 'build' ? 'http://localhost:3000' : ''}/login/${isLogin ? "password" :  "signup" }`
         try {
             const response = await fetch(url, request)
             const responsejson = await response.json()
@@ -77,7 +77,7 @@ export function SignupView(props:{
                         ${errorCode == '23505' ? " login__form__field__error" : ""}
                         ${errorCode == 'incorrect' ? " login__form__field__error" : ""}`
                       }>
-              <label htmlFor="username">Nom d'utilisateur</label>
+              <label htmlFor="username">Nom d&apos;utilisateur</label>
               <input
                 type="text"
                 id="username"

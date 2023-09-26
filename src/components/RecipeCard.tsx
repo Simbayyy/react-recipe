@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { RecipeSchema } from "../functions/types"
-
+import React from 'react'
 
 const RecipeCard: React.FunctionComponent<{recipe:RecipeSchema, index:number}> =  ({recipe, index}): React.ReactElement => {
     
