@@ -1,8 +1,60 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { RecipeType } from "../functions/types";
 import { RecipeCard } from "./RecipeCard";
 import { Outlet, useOutlet } from "react-router-dom";
 import React from "react";
+
+const Carousel: React.FunctionComponent<{
+  data:{
+    recipe: RecipeType;
+    index: number;
+  }[],
+  name:string
+}> = ({
+  data,
+  name
+}): React.ReactElement => {
+  const [activeCard, setActiveCard] = useState(0)
+  const [numItems, setNumItems] = useState(3);
+  const activeRef = useRef<null | HTMLAnchorElement>(null)
+  
+  const width = window.innerWidth;
+  useEffect(() => {
+      if (width > 800) {
+          setNumItems(5);
+      } else {
+          setNumItems(2);
+      }
+  }, [width]) 
+
+  useEffect(() => {
+    if (activeRef.current) {
+      activeRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'start'
+      });
+    }
+  }, [activeCard]) 
+
+  const maxCard = data.length
+
+  return <div className={`carousel__${name}`}>
+    <button onClick={() => setActiveCard((activeCard - 1 + maxCard) % (maxCard))} className={`carousel__${name}__button`}>
+      arrière
+    </button>
+    <div className={`carousel__${name}__content`}>
+    {data.map((card)=>{
+      return <RecipeCard recipe={card.recipe} index={card.index} ref={card.index === activeCard ? activeRef : null}/>
+    }).concat(data.slice(0,numItems).map((card)=>{
+      return <RecipeCard recipe={card.recipe} index={card.index + numItems} ref={null}/>
+    }))}
+    </div>
+    <button onClick={() => setActiveCard((activeCard + 1) % (maxCard))} className={`carousel__${name}__button`}>
+      avant
+    </button>
+  </div>
+}
 
 const RecipeList: React.FunctionComponent = (): React.ReactElement => {
   const [data, setData] = useState(null);
@@ -28,27 +80,23 @@ const RecipeList: React.FunctionComponent = (): React.ReactElement => {
         console.error("Error fetching data:", error);
       });
   }, []); // Empty dependency array ensures this effect runs only once on mount
-  function showRecipes(data: null | { recipes: RecipeType[] }) {
+  function prepRecipes(data: null | { recipes: RecipeType[] }) {
     if (data) {
       const dataComponents = data.recipes
         .filter((elt) => {
           return elt.name != "";
         })
         .map((element, index) => {
-          return RecipeCard({ recipe: element, index: index });
+          return { recipe: element, index: index };
         });
-      return <div className="content__recipes">{dataComponents}</div>;
+      return dataComponents;
     } else {
-      return (
-        <div className="content__recipes">
-          Loading from {import.meta.env.keys}...
-        </div>
-      );
+      return [];
     }
   }
   return (
     <div className="content">
-      {showRecipes(data)}
+      <Carousel data={prepRecipes(data)} name={"recipes"}/>
       {(outlet && <Outlet context={data} />) || placeholder}
     </div>
   );

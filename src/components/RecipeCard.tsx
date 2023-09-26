@@ -1,16 +1,18 @@
 import { Link } from "react-router-dom";
 import { RecipeSchema } from "../functions/types";
-import React from "react";
+import React, {forwardRef, MutableRefObject} from "react";
 
-const RecipeCard: React.FunctionComponent<{
-  recipe: RecipeSchema;
-  index: number;
-}> = ({ recipe, index }): React.ReactElement => {
+const RecipeCard = forwardRef<HTMLAnchorElement,{
+    recipe: RecipeSchema;
+    index: number;
+    ref?: MutableRefObject<HTMLAnchorElement | null>;
+  }>( ({ recipe, index }, ref): React.ReactElement => {
   return (
     <Link
       to={`${recipe.id}` || "."}
       key={index}
       className="content__recipes__card"
+      ref={ref}
     >
       <div className="content__recipe__card__name">{recipe.name}</div>
       <div>
@@ -20,6 +22,6 @@ const RecipeCard: React.FunctionComponent<{
       <div>{`${recipe.totalTime} ${recipe.totalTime}`}</div>
     </Link>
   );
-};
+});
 
 export { RecipeCard };

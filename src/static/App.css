@@ -193,18 +193,26 @@ html {
   flex-direction: column;
 }
 
-.content__recipes {
-  flex: auto;
+.carousel__recipes {
   background-color: rgb(250, 250, 250);
   display: flex;
   flex-direction: row;
-  overflow-x: scroll;
-  scrollbar-width: thin;
-  overflow-y: hidden;
-  justify-content: flex-start;
-  align-items: center;
   flex: 0;
-  height: fit-content;
+  min-height: 15rem;
+  width:100vw;
+}
+
+
+.carousel__recipes__content {
+  background-color: rgb(250, 250, 250);
+  display: flex;
+  flex-direction: row;
+  min-height: 15rem;
+  overflow: hidden;
+}
+
+.carousel__recipes__content > div {
+
 }
 
 .content__recipes__recipe {
@@ -225,12 +233,10 @@ html {
   padding: 2rem 1rem;
   text-decoration: none;
   color: black;
-  flex: 0;
-  min-width: 30rem;
-  max-width: 30rem;
   max-height: 15rem;
   display: flex;
   flex-direction: column;
+  min-width: 30rem;
 }
 
 .content__recipe__card__name {
