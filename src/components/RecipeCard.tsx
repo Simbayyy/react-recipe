@@ -1,21 +1,35 @@
 import { Link } from "react-router-dom";
 import { RecipeSchema } from "../functions/types";
-import React, {forwardRef, MutableRefObject} from "react";
+import React, {forwardRef, MutableRefObject, useState} from "react";
 
 const RecipeAdderCard = forwardRef<HTMLAnchorElement,{
     index: number;
+    fetchRecipe: Function
     ref?: MutableRefObject<HTMLAnchorElement | null>;
-  }>( ({ index }, ref): React.ReactElement => {
+    active?: boolean
+  }>( ({ index, fetchRecipe, active }, ref): React.ReactElement => {
+    const [url, setUrl] = useState("")
+
+    const handleUrlChange = (e: React.SyntheticEvent) => {
+        const target = e.target as HTMLInputElement;
+        setUrl(target.value);
+      };
+
   return (
     <a
       key={index}
-      className="content__recipes__card"
+      className={`content__recipes__card ${active ? "content__inactive__sender" : ""}`}
       ref={ref}
     >
-      <input className="content__recipe__card__name" placeholder="Entre une URL ici" type="text"/>
-      <div>
-      </div>
-      <div></div>
+      <textarea 
+        className="content__recipe__card__name recipe__adder" 
+        placeholder="Entre une URL ici"
+        id="email"
+        name="email"
+        value={url}
+        onChange={handleUrlChange}
+        />
+      <button onClick={() => fetchRecipe(url)} className="recipe__adder__sender">Chercher</button>
     </a>
   );
 });

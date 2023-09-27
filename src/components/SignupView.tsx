@@ -74,8 +74,13 @@ export function SignupView(props: {
     }
   };
 
+  const goBack = () => {
+    navigate(-1)
+  }
+
   return (
     <div className="login__background">
+      <div onClick={goBack} className="login__go_back">Revenir en arrière</div>
       <div className="login__box">
         <div className="login__form__title">
           {isLogin ? "Se connecter" : "S'inscrire"}

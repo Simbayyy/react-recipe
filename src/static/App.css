@@ -69,20 +69,6 @@ html {
   scrollbar-width: thin;
 }
 
-.admin__button {
-  flex: 0;
-  min-width: 30rem;
-  height: 16rem;
-  display: flex;
-  flex-direction: column;
-  text-decoration: none;
-  margin: 1rem;
-  padding: 1rem;
-  border-radius: 1rem;
-  background-color: #eee;
-  border: 0.1rem solid #333;
-}
-
 .admin__button__title {
   font-size: 2.5rem;
   color: #333;
@@ -97,15 +83,6 @@ html {
   font-style: italic;
 }
 
-.login__background {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  width: 100vw;
-  background-color: aquamarine;
-}
-
 .ingredient__cards {
   display: flex;
   flex-wrap: wrap;
@@ -118,9 +95,32 @@ html {
   margin: 1rem;
 }
 
+.login__background {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: aquamarine;
+  flex-direction: column;
+}
+
+.login__go_back {
+  font-size: 1.4rem;
+  padding: 1rem;
+  font-style: italic;
+  color: #444;
+  width:30rem;
+  text-align: left;
+}
+
+.login__go_back:hover {
+  cursor: pointer;
+}
+
 .login__box {
   padding: 1.5rem;
-  background-color: #eee;
+  background-color: #fafafa;
   border-radius: 1.5rem;
   font-size: 2rem;
 }
@@ -271,7 +271,7 @@ html {
   overflow-x: hidden;
 }
 
-.content__recipes__card {
+.content__recipes__card, .admin__button {
   margin: 2rem;
   background-color: #f8f8f8;
   border-radius: 1rem;
@@ -300,6 +300,16 @@ html {
     max-height: fit-content;
     min-width: 18rem;
   }
+}
+
+.recipe__adder {
+  border: none;
+  background: none;
+  height: fit-content;
+  outline: none;
+  font-family: inherit;
+  font-size: inherit;
+  resize: none;
 }
 
 .content__recipes__recipe__title {

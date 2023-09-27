@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { RecipeType } from "../functions/types";
 import { RecipeAdderCard, RecipeCard } from "./RecipeCard";
-import { Outlet, useOutlet } from "react-router-dom";
+import { Outlet, useOutlet, useNavigate } from "react-router-dom";
 import React from "react";
 import {Loading, Arrow} from './Icons'
 
@@ -10,10 +10,14 @@ const Carousel: React.FunctionComponent<{
     recipe: RecipeType;
     index: number;
   }[],
-  name:string
+  name:string,
+  fetching:boolean,
+  fetchRecipe: Function
 }> = ({
   data,
-  name
+  name,
+  fetching,
+  fetchRecipe
 }): React.ReactElement => {
   const [activeCard, setActiveCard] = useState(0)
   const [numItems, setNumItems] = useState(5);
@@ -40,7 +44,7 @@ const Carousel: React.FunctionComponent<{
 
   const maxCard = data.length + 1
 
-  const recipeAdder = (index:number) => <RecipeAdderCard index={index} ref={index === activeCard ? activeRef : null}/>
+  const recipeAdder = (index:number) => <RecipeAdderCard index={index} fetchRecipe={fetchRecipe} active={fetching} ref={index === activeCard ? activeRef : null}/>
 
   return <div className={`carousel__${name}`}>
     <button onClick={() => setActiveCard((activeCard - 1 + maxCard) % (maxCard))} className={`carousel__${name}__button`}>
@@ -66,8 +70,9 @@ const Carousel: React.FunctionComponent<{
 }
 
 const RecipeList: React.FunctionComponent = (): React.ReactElement => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<null |{ recipes: RecipeType[] }>(null);
   const [loading, setLoading] = useState(true);
+  const [fetching, setFetching] = useState(false);
 
   const outlet = useOutlet();
   const placeholder = (
@@ -106,9 +111,32 @@ const RecipeList: React.FunctionComponent = (): React.ReactElement => {
       return [];
     }
   }
+  const navigate = useNavigate();
+
+  const fetchRecipe = (url:string) => {
+    setFetching(true)
+    fetch('/api/parse', {
+      body:JSON.stringify({url:url}), 
+      method:"POST", 
+      headers:{"Content-Type":"application/json"}
+    })
+      .then((response) => {
+        return response.json()
+      })
+      .then((response) => {
+        setFetching(false)
+        if (data === null) {
+          setData({recipes:response})
+        } else {
+          setData({recipes:data.recipes.concat([response])})
+        }
+        navigate(`/recipes/${response.id}`)
+      })
+  }
+
   return (
     <div className="content">
-      {(loading && <Loading className="content__loading"/>) || [<Carousel data={prepRecipes(data)} name={"recipes"}/>,
+      {(loading && <Loading className="content__loading"/>) || [<Carousel data={prepRecipes(data)} name={"recipes"} fetching={fetching} fetchRecipe={fetchRecipe}/>,
       (outlet && <Outlet context={data} />) || placeholder]}
     </div>
   );
