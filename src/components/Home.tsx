@@ -68,11 +68,9 @@ export const Home: React.FunctionComponent<{
     );
 
   return (
-    <div>
       <div className="home">
         <div className="home__header">{logInComponents}</div>
         <Outlet />
       </div>
-    </div>
   );
 };

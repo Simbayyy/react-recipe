@@ -1,8 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 import { RecipeType } from "../functions/types";
-import { RecipeCard } from "./RecipeCard";
+import { RecipeAdderCard, RecipeCard } from "./RecipeCard";
 import { Outlet, useOutlet } from "react-router-dom";
 import React from "react";
+import arrowUrl from '../static/rightarrow.svg'
 
 const Carousel: React.FunctionComponent<{
   data:{
@@ -15,12 +16,12 @@ const Carousel: React.FunctionComponent<{
   name
 }): React.ReactElement => {
   const [activeCard, setActiveCard] = useState(0)
-  const [numItems, setNumItems] = useState(3);
-  const activeRef = useRef<null | HTMLAnchorElement>(null)
+  const [numItems, setNumItems] = useState(5);
+  const activeRef = useRef<null | HTMLAnchorElement >(null)
   
   const width = window.innerWidth;
   useEffect(() => {
-      if (width > 800) {
+      if (width > 700) {
           setNumItems(5);
       } else {
           setNumItems(2);
@@ -37,21 +38,29 @@ const Carousel: React.FunctionComponent<{
     }
   }, [activeCard]) 
 
-  const maxCard = data.length
+  const maxCard = data.length + 1
+
+  const recipeAdder = (index:number) => <RecipeAdderCard index={index} ref={index === activeCard ? activeRef : null}/>
 
   return <div className={`carousel__${name}`}>
     <button onClick={() => setActiveCard((activeCard - 1 + maxCard) % (maxCard))} className={`carousel__${name}__button`}>
-      arrière
+      <img src={arrowUrl} className="carousel__button__arrow flipped" alt="Previous button"></img>
     </button>
     <div className={`carousel__${name}__content`}>
-    {data.map((card)=>{
-      return <RecipeCard recipe={card.recipe} index={card.index} ref={card.index === activeCard ? activeRef : null}/>
-    }).concat(data.slice(0,numItems).map((card)=>{
-      return <RecipeCard recipe={card.recipe} index={card.index + numItems} ref={null}/>
-    }))}
+      {recipeAdder(0)}
+      {data
+        .map((card)=>{
+          return <RecipeCard recipe={card.recipe} index={card.index + 1} ref={card.index + 1 === activeCard ? activeRef : null}/>
+        })
+        .concat(maxCard > 1 ? [recipeAdder(maxCard)] : [])
+        .concat(
+          data.slice(0,numItems)
+          .map((card)=>{
+            return <RecipeCard recipe={card.recipe} index={card.index + 1 + numItems} ref={null}/>
+      }))}
     </div>
     <button onClick={() => setActiveCard((activeCard + 1) % (maxCard))} className={`carousel__${name}__button`}>
-      avant
+      <img src={arrowUrl} className="carousel__button__arrow" alt="Next button"></img>
     </button>
   </div>
 }
