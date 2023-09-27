@@ -3,7 +3,7 @@ import { RecipeType } from "../functions/types";
 import { RecipeAdderCard, RecipeCard } from "./RecipeCard";
 import { Outlet, useOutlet } from "react-router-dom";
 import React from "react";
-import arrowUrl from '../static/rightarrow.svg'
+import {Loading, Arrow} from './Icons'
 
 const Carousel: React.FunctionComponent<{
   data:{
@@ -44,7 +44,7 @@ const Carousel: React.FunctionComponent<{
 
   return <div className={`carousel__${name}`}>
     <button onClick={() => setActiveCard((activeCard - 1 + maxCard) % (maxCard))} className={`carousel__${name}__button`}>
-      <img src={arrowUrl} className="carousel__button__arrow flipped" alt="Previous button"></img>
+      <Arrow className="carousel__button__arrow flipped"/>
     </button>
     <div className={`carousel__${name}__content`}>
       {recipeAdder(0)}
@@ -60,13 +60,14 @@ const Carousel: React.FunctionComponent<{
       }))}
     </div>
     <button onClick={() => setActiveCard((activeCard + 1) % (maxCard))} className={`carousel__${name}__button`}>
-      <img src={arrowUrl} className="carousel__button__arrow" alt="Next button"></img>
+      <Arrow className="carousel__button__arrow"/>
     </button>
   </div>
 }
 
 const RecipeList: React.FunctionComponent = (): React.ReactElement => {
   const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const outlet = useOutlet();
   const placeholder = (
@@ -84,9 +85,11 @@ const RecipeList: React.FunctionComponent = (): React.ReactElement => {
       .then((res) => res.json())
       .then((res) => {
         setData(res);
+        setLoading(false)
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
+        setLoading(false)
       });
   }, []); // Empty dependency array ensures this effect runs only once on mount
   function prepRecipes(data: null | { recipes: RecipeType[] }) {
@@ -105,8 +108,8 @@ const RecipeList: React.FunctionComponent = (): React.ReactElement => {
   }
   return (
     <div className="content">
-      <Carousel data={prepRecipes(data)} name={"recipes"}/>
-      {(outlet && <Outlet context={data} />) || placeholder}
+      {(loading && <Loading className="content__loading"/>) || [<Carousel data={prepRecipes(data)} name={"recipes"}/>,
+      (outlet && <Outlet context={data} />) || placeholder]}
     </div>
   );
 };

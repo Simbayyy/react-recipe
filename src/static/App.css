@@ -1,6 +1,8 @@
 html {
   font-size: 62.5%;
   display: flex;
+  overflow-x: hidden;
+  scrollbar-width: thin;
 }
 
 .home {
@@ -200,6 +202,7 @@ html {
   flex: 0;
   min-height: 15rem;
   width:100vw;
+  border-bottom: 0.07rem solid #bbb;
 }
 
 
@@ -209,10 +212,52 @@ html {
   flex-direction: row;
   min-height: 15rem;
   overflow: hidden;
+  padding: 0 2rem;
 }
 
-.carousel__recipes__content > div {
+.carousel__recipes__button {
+  border: none;
+  background-color: transparent;
+  max-width: 15vw;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  transition: background-color 0.4s linear;
+}
 
+.carousel__button__arrow {
+  max-width: 5rem;
+  padding: 0 1rem;
+  max-height: 15rem;
+}
+
+.carousel__recipes__button:hover {
+  background-color: #bbb;  
+  cursor: pointer;
+}
+
+.svg {
+  paint-order:markers stroke fill
+}
+
+.flipped {
+  transform: scaleX(-1);
+}
+
+.content__loading {
+  max-height: 20vh;
+  animation: spin 1s linear infinite;
+  justify-self: center;
+  align-self: center;
+}
+
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
 }
 
 .content__recipes__recipe {
@@ -228,8 +273,9 @@ html {
 
 .content__recipes__card {
   margin: 2rem;
-  box-shadow: 0.7rem 0.5rem #777;
-  background-color: #f5f5f5;
+  background-color: #f8f8f8;
+  border-radius: 1rem;
+  border: 0.1rem solid #bbb;
   padding: 2rem 1rem;
   text-decoration: none;
   color: black;
@@ -245,13 +291,14 @@ html {
   flex: auto;
 }
 
-.content__recipes__card:hover {
+.content__recipes__card:hover, .content__recipes__card:active {
   max-height: fit-content;
 }
 
 @media (max-width: 700px) {
   .content__recipes__card {
     max-height: fit-content;
+    min-width: 18rem;
   }
 }
 
