@@ -110,7 +110,7 @@ html {
   padding: 1rem;
   font-style: italic;
   color: #444;
-  width:30rem;
+  width: 30rem;
   text-align: left;
 }
 
@@ -201,10 +201,9 @@ html {
   flex-direction: row;
   flex: 0;
   min-height: 15rem;
-  width:100vw;
+  width: 100vw;
   border-bottom: 0.07rem solid #bbb;
 }
-
 
 .carousel__recipes__content {
   background-color: rgb(250, 250, 250);
@@ -232,12 +231,12 @@ html {
 }
 
 .carousel__recipes__button:hover {
-  background-color: #bbb;  
+  background-color: #bbb;
   cursor: pointer;
 }
 
 .svg {
-  paint-order:markers stroke fill
+  paint-order: markers stroke fill;
 }
 
 .flipped {
@@ -275,36 +274,35 @@ html {
   height: 10rem;
 }
 
-
 @keyframes spinstop {
   0% {
-      transform:rotate(0deg);
+    transform: rotate(0deg);
   }
-  40%, 100% {
-      transform:rotate(360deg);
+  40%,
+  100% {
+    transform: rotate(360deg);
   }
 }
 
 @keyframes spin {
   from {
-      transform:rotate(0deg);
+    transform: rotate(0deg);
   }
   to {
-      transform:rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 
-
 @keyframes grow {
-    0% {
-      transform:translate(-0.1rem,0);
-    }
-    20% {
-      transform:translate(0.15rem,0);
-    }
-    40% {
-      transform:translate(0rem,0);
-    }
+  0% {
+    transform: translate(-0.1rem, 0);
+  }
+  20% {
+    transform: translate(0.15rem, 0);
+  }
+  40% {
+    transform: translate(0rem, 0);
+  }
 }
 
 .content__recipes__recipe {
@@ -318,7 +316,8 @@ html {
   overflow-x: hidden;
 }
 
-.content__recipes__card, .admin__button {
+.content__recipes__card,
+.admin__button {
   margin: 2rem;
   background-color: #f8f8f8;
   border-radius: 1rem;
@@ -342,7 +341,8 @@ html {
   flex: auto;
 }
 
-.content__recipes__card:hover, .content__recipes__card:active {
+.content__recipes__card:hover,
+.content__recipes__card:active {
   max-height: fit-content;
 }
 
@@ -375,7 +375,7 @@ html {
 .content__recipes__recipe__summary {
   display: flex;
   flex-direction: row;
-  padding:1rem;
+  padding: 1rem;
 }
 
 .recipe__ingredients {

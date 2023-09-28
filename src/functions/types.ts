@@ -28,25 +28,3 @@ export interface RecipeSchema {
   recipeIngredient?: string[] | Ingredient[];
   id?: number;
 }
-
-function areIngredients(ingredients: Ingredient[] | object[]): boolean {
-  function isIngredient(
-    ingredient: Ingredient | object,
-  ): ingredient is Ingredient {
-    const ingredientAs = ingredient as Ingredient;
-    return (
-      ingredientAs.name !== undefined &&
-      typeof ingredientAs.name == "string" &&
-      ingredientAs.amount !== undefined &&
-      typeof ingredientAs.amount == "number" &&
-      ingredientAs.unit !== undefined &&
-      typeof ingredientAs.unit == "string"
-    );
-  }
-
-  let allingredients = true;
-  ingredients.forEach((ingredient) => {
-    allingredients ? (allingredients = isIngredient(ingredient)) : 0;
-  });
-  return allingredients;
-}

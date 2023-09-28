@@ -1,62 +1,86 @@
 import { Link } from "react-router-dom";
 import { RecipeSchema } from "../functions/types";
-import React, {forwardRef, MutableRefObject, useState, useEffect} from "react";
-import * as td from 'tinyduration'
-import {Time, TimeUnit, display_time_string, reduce_time_object, units} from '../functions/time_parsing'
+import React, {
+  forwardRef,
+  MutableRefObject,
+  useState,
+  useEffect,
+} from "react";
+import * as td from "tinyduration";
+import {
+  Time,
+  display_time_string,
+  reduce_time_object,
+} from "../functions/time_parsing";
 
-const RecipeAdderCard = forwardRef<HTMLAnchorElement,{
+const RecipeAdderCard = forwardRef<
+  HTMLAnchorElement,
+  {
     index: number;
-    fetchRecipe: Function
+    fetchRecipe: (url: string) => Promise<boolean>;
     ref?: MutableRefObject<HTMLAnchorElement | null>;
-    active?: boolean
-  }>( ({ index, fetchRecipe, active }, ref): React.ReactElement => {
-    const [url, setUrl] = useState("")
+    active?: boolean;
+  }
+>(({ index, fetchRecipe, active }, ref): React.ReactElement => {
+  const [url, setUrl] = useState("");
 
-    const handleUrlChange = (e: React.SyntheticEvent) => {
-        const target = e.target as HTMLInputElement;
-        setUrl(target.value);
-      };
+  const handleUrlChange = (e: React.SyntheticEvent) => {
+    const target = e.target as HTMLInputElement;
+    setUrl(target.value);
+  };
 
   return (
     <a
       key={index}
-      className={`content__recipes__card ${active ? "" : "content__inactive__sender"}`}
+      className={`content__recipes__card ${
+        active ? "" : "content__inactive__sender"
+      }`}
       ref={ref}
     >
-      <textarea 
-        className="content__recipe__card__name recipe__adder" 
+      <textarea
+        className="content__recipe__card__name recipe__adder"
         placeholder="Entre une URL ici"
         id="email"
         name="email"
         value={url}
         onChange={handleUrlChange}
-        />
-      <button 
-        onClick={() => {active ? fetchRecipe(url).then((_:any) => {setUrl("")}) : ""}} 
+      />
+      <button
+        onClick={() => {
+          active
+            ? fetchRecipe(url).then(() => {
+                setUrl("");
+              })
+            : "";
+        }}
         className="recipe__adder__sender"
-        >
-            Chercher
-        </button>
+      >
+        Chercher
+      </button>
     </a>
   );
 });
 
-const RecipeCard = forwardRef<HTMLAnchorElement,{
+RecipeAdderCard.displayName = "RecipeAdderCard";
+
+const RecipeCard = forwardRef<
+  HTMLAnchorElement,
+  {
     recipe: RecipeSchema;
     index: number;
     ref?: MutableRefObject<HTMLAnchorElement | null>;
-  }>( ({ recipe, index }, ref): React.ReactElement => {
-
-    const [reducedTime, setReducedTime] = useState<Time>({
-        mainTime: null,
-        mainUnit: null,
-        secondaryTime: null,
-        secondaryUnit: null,        
-    })
-    useEffect(() => {
-        const totalTimeObject = td.parse(recipe?.totalTime ?? "")
-        setReducedTime(reduce_time_object(totalTimeObject)) 
-    }, [])
+  }
+>(({ recipe, index }, ref): React.ReactElement => {
+  const [reducedTime, setReducedTime] = useState<Time>({
+    mainTime: null,
+    mainUnit: null,
+    secondaryTime: null,
+    secondaryUnit: null,
+  });
+  useEffect(() => {
+    const totalTimeObject = td.parse(recipe?.totalTime ?? "");
+    setReducedTime(reduce_time_object(totalTimeObject));
+  }, []);
 
   return (
     <Link
@@ -74,5 +98,7 @@ const RecipeCard = forwardRef<HTMLAnchorElement,{
     </Link>
   );
 });
+
+RecipeCard.displayName = "RecipeCard";
 
 export { RecipeCard, RecipeAdderCard };
