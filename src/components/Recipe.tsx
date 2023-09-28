@@ -7,6 +7,7 @@ import {
   Time,
   display_time_string,
   reduce_time_object,
+  Duration,
 } from "../functions/time_parsing";
 import { CookTime, PrepTime, TotalTime } from "./Icons";
 
@@ -40,11 +41,11 @@ const Recipe: React.FunctionComponent<
       data?.recipes.find((elt) => {
         return elt.id == recipeId;
       }) || undefined;
-    const totalTimeObject = td.parse(recipe?.totalTime ?? "");
+    const totalTimeObject = td.parse(recipe?.totalTime ?? "") as Duration;
     setReducedTotalTime(reduce_time_object(totalTimeObject));
-    const prepTimeObject = td.parse(recipe?.prepTime ?? "");
+    const prepTimeObject = td.parse(recipe?.prepTime ?? "") as Duration;
     setReducedPrepTime(reduce_time_object(prepTimeObject));
-    const cookTimeObject = td.parse(recipe?.cookTime ?? "");
+    const cookTimeObject = td.parse(recipe?.cookTime ?? "") as Duration;
     setReducedCookTime(reduce_time_object(cookTimeObject));
   }, [recipeId]);
 

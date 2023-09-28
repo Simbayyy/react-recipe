@@ -11,6 +11,7 @@ import {
   Time,
   display_time_string,
   reduce_time_object,
+  Duration,
 } from "../functions/time_parsing";
 
 const RecipeAdderCard = forwardRef<
@@ -78,7 +79,7 @@ const RecipeCard = forwardRef<
     secondaryUnit: null,
   });
   useEffect(() => {
-    const totalTimeObject = td.parse(recipe?.totalTime ?? "");
+    const totalTimeObject = td.parse(recipe?.totalTime ?? "") as Duration;
     setReducedTime(reduce_time_object(totalTimeObject));
   }, []);
 

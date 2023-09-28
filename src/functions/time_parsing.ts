@@ -14,7 +14,7 @@ export type Time = {
   secondaryUnit: TimeUnit;
 };
 
-type Duration = {
+export type Duration = {
   years: number;
   months: number;
   days: number;
