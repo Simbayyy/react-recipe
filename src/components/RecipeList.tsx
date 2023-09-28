@@ -44,7 +44,7 @@ const Carousel: React.FunctionComponent<{
 
   const maxCard = data.length + 1
 
-  const recipeAdder = (index:number) => <RecipeAdderCard index={index} fetchRecipe={fetchRecipe} active={fetching} ref={index === activeCard ? activeRef : null}/>
+  const recipeAdder = (index:number) => <RecipeAdderCard index={index} fetchRecipe={fetchRecipe} active={!fetching} ref={index === activeCard ? activeRef : null}/>
 
   return <div className={`carousel__${name}`}>
     <button onClick={() => setActiveCard((activeCard - 1 + maxCard) % (maxCard))} className={`carousel__${name}__button`}>
@@ -73,11 +73,12 @@ const RecipeList: React.FunctionComponent = (): React.ReactElement => {
   const [data, setData] = useState<null |{ recipes: RecipeType[] }>(null);
   const [loading, setLoading] = useState(true);
   const [fetching, setFetching] = useState(false);
+  const [placeholderText, setPlaceholderText] = useState('Clique sur une recette pour en voir les détails')
 
   const outlet = useOutlet();
   const placeholder = (
     <div className="content__recipes__recipe">
-      Clique sur une recette pour en voir les détails
+      {placeholderText}
     </div>
   );
 
@@ -113,7 +114,7 @@ const RecipeList: React.FunctionComponent = (): React.ReactElement => {
   }
   const navigate = useNavigate();
 
-  const fetchRecipe = (url:string) => {
+  const fetchRecipe = async (url:string) => {
     setFetching(true)
     fetch('/api/parse', {
       body:JSON.stringify({url:url}), 
@@ -121,7 +122,11 @@ const RecipeList: React.FunctionComponent = (): React.ReactElement => {
       headers:{"Content-Type":"application/json"}
     })
       .then((response) => {
-        return response.json()
+        if (response.ok) {
+          return response.json()
+        } else {
+          throw Error('Could not fetch recipe')
+        }
       })
       .then((response) => {
         setFetching(false)
@@ -132,6 +137,12 @@ const RecipeList: React.FunctionComponent = (): React.ReactElement => {
         }
         navigate(`/recipes/${response.id}`)
       })
+      .catch((err) => {
+        setFetching(false)
+        setPlaceholderText('Une erreur est survenue lors de la recherche de la recette')
+        navigate(`/recipes`)
+      })
+    return true
   }
 
   return (

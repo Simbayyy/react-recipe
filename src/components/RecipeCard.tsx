@@ -18,7 +18,7 @@ const RecipeAdderCard = forwardRef<HTMLAnchorElement,{
   return (
     <a
       key={index}
-      className={`content__recipes__card ${active ? "content__inactive__sender" : ""}`}
+      className={`content__recipes__card ${active ? "" : "content__inactive__sender"}`}
       ref={ref}
     >
       <textarea 
@@ -29,7 +29,12 @@ const RecipeAdderCard = forwardRef<HTMLAnchorElement,{
         value={url}
         onChange={handleUrlChange}
         />
-      <button onClick={() => fetchRecipe(url)} className="recipe__adder__sender">Chercher</button>
+      <button 
+        onClick={() => {active ? fetchRecipe(url).then((_:any) => {setUrl("")}) : ""}} 
+        className="recipe__adder__sender"
+        >
+            Chercher
+        </button>
     </a>
   );
 });

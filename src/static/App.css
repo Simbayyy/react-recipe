@@ -285,6 +285,10 @@ html {
   min-width: 30rem;
 }
 
+.content__recipes__card.content__inactive__sender {
+  background-color: #bbb;
+}
+
 .content__recipe__card__name {
   text-overflow: ellipsis;
   overflow: hidden;
@@ -331,4 +335,17 @@ html {
 .recipe__ingredients__ingredient {
   padding: 5px;
   text-align: center;
+  display: flex;
+}
+
+.ingredient__name {
+  font-weight: bold;
+}
+
+.faulty__ingredient > .ingredient__name {
+  text-decoration: underline rgb(180, 0, 0);
+}
+
+.faulty__ingredient > .ingredient__name:hover {
+  cursor: help;
 }
