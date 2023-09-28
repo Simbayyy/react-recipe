@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="15mm" height="15mm" version="1.1" viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+ <g transform="matrix(1.9109 0 0 1.9109 -6.8317 -5.4994)" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="bevel" stroke-width=".26458">
+  <path d="m7.4848 3.6695a3.1331 3.1331 0 0 0-3.1171 3.0903 3.1331 3.1331 0 0 0 3.0313 3.1745 3.1331 3.1331 0 0 0 3.2303-2.9719l0.0031-0.23358a3.1331 3.1331 0 0 0-3.1476-3.0592zm0.00362 0.75293a2.3804 2.3804 0 0 1 2.3916 2.3239l-0.00258 0.17777a2.3804 2.3804 0 0 1-2.4541 2.2577 2.3804 2.3804 0 0 1-2.3032-2.4117 2.3804 2.3804 0 0 1 2.3683-2.3477z" fill="#666" stop-color="#000000" style="paint-order:markers stroke fill"/>
+  <path d="m9.8774 6.9241a2.3804 2.3804 0 0 1-0.60823 1.4697l0.56069 0.50436a3.1331 3.1331 0 0 0 0.79943-1.9358z" fill="#e6e6e6" stop-color="#000000" style="paint-order:markers stroke fill"/>
+ </g>
+</svg>

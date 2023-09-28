@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="15mm" height="15mm" version="1.1" viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+ <path d="m7.4998 0.6413a5.5792 5.5993 0 0 0-0.41341 0.015503c-0.0017114 1.2494e-4 -0.0034568-1.2647e-4 -0.0051677 0a5.5792 5.5993 0 0 0-5.1604 5.5836 5.5792 5.5993 0 0 0 5.579 5.5997 5.5792 5.5993 0 0 0 5.5795-5.5997 5.5792 5.5993 0 0 0-5.1485-5.5826c-0.047737-0.0036305-0.095597-0.0068758-0.14366-0.0093018a5.5792 5.5993 0 0 0-0.14263-0.0051676c-3.429e-4 -8.68e-6 -6.905e-4 8.62e-6 -0.0010335 0a5.5792 5.5993 0 0 0-0.14366-0.0020671z" fill="#d45500" fill-rule="evenodd" stop-color="#000000" stroke-linecap="round" stroke-linejoin="bevel" stroke-width=".38719" style="paint-order:markers stroke fill"/>
+ <text x="7.5048504" y="14.635936" fill="#d45500" font-family="'Great Lakes NF'" font-size="3.175px" font-weight="bold" stroke-width=".26458" text-align="end" text-anchor="end" style="line-height:1.25" xml:space="preserve"><tspan x="7.5048504" y="14.635936" fill="#d45500" font-family="Iosevka" font-size="3.175px" font-weight="bold" stroke-width=".26458" text-align="center" text-anchor="middle">1 h 55 min</tspan></text>
+ <g transform="matrix(1.4857 0 0 1.4857 -1.7057 -1.094)" fill="#e6e6e6" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="bevel">
+  <rect transform="matrix(-.99998 .0056807 -.0025889 -1 0 0)" x="-8.1221" y="-5.201" width="1.3815" height=".29036" ry=".14518" stop-color="#000000" stroke-width=".088899" style="paint-order:markers stroke fill"/>
+  <rect transform="matrix(.0042864 .99999 -.99999 .0034311 0 0)" x="2.823" y="-6.2971" width="1.8063" height=".28647" ry=".14324" stop-color="#000000" stroke-width=".10097" style="paint-order:markers stroke fill"/>
+  <path d="m6.1962 1.7265a3.2105 3.2105 0 0 0-3.2103 3.2103 3.2105 3.2105 0 0 0 3.2103 3.2106 3.2105 3.2105 0 0 0 3.2106-3.2106 3.2105 3.2105 0 0 0-3.2106-3.2103zm0 0.54899a2.6616 2.6616 0 0 1 2.6616 2.6613 2.6616 2.6616 0 0 1-2.6616 2.6616 2.6616 2.6616 0 0 1-2.6613-2.6616 2.6616 2.6616 0 0 1 2.6613-2.6613z" stop-color="#000000" stroke-width=".222" style="paint-order:markers stroke fill"/>
+ </g>
+ <g transform="matrix(.82138 0 0 .82138 1.6787 1.7166)">
+  <rect transform="rotate(-15)" x="6.0603" y="10.902" width="4.6707" height=".50899" ry=".25335" fill="#333" fill-rule="evenodd" stop-color="#000000" stroke="#333" stroke-linecap="round" stroke-linejoin="bevel" stroke-width=".011" style="paint-order:markers stroke fill"/>
+  <g transform="matrix(1.845 -.22741 .22741 1.845 -7.6716 -6.2752)">
+   <ellipse cx="5.9575" cy="9.2307" rx="2.1468" ry=".48723" fill="#fff" fill-rule="evenodd" stop-color="#000000" style="paint-order:markers stroke fill"/>
+   <path d="m5.9552 9.2502c-0.89352 6.47e-5 -1.6742 0.14979-1.8996 0.36432 0.37754 0.15716 1.1066 0.25513 1.8996 0.25528 0.79323-1.1e-4 1.5225-0.098088 1.9001-0.25528-0.22546-0.21458-1.0064-0.36431-1.9001-0.36432zm-1.9637 0.48731c2.444e-4 0.023175 0.00715 0.046315 0.020671 0.069246-0.00778-0.022432-0.014901-0.045283-0.020671-0.069246z" fill="#d45500" fill-rule="evenodd" stop-color="#000000" style="paint-order:markers stroke fill"/>
+   <path d="m3.9863 9.4228c0.03733 0.6943 0.73531 0.85881 1.9864 0.84491 1.1028-0.01226 1.7763-0.12106 1.946-0.62119 0.022825-0.067257 0.03654-0.14159 0.040965-0.22372-0.34097 0.17903-1.1224 0.29507-1.987 0.29507-0.86436-4.48e-5 -1.6455-0.11608-1.9864-0.29507z" fill="#333" stroke="#333" stroke-width=".26458px"/>
+  </g>
+  <path d="m9.2576 10.064c0.38573-0.8025 1.8054-1.2151 1.8054-1.2151l-1.5926-0.048512-0.28376 0.24715z" fill="#333"/>
+ </g>
+</svg>
