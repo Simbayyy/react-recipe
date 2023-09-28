@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { RecipeSchema } from "../functions/types";
 import React, {forwardRef, MutableRefObject, useState, useEffect} from "react";
 import * as td from 'tinyduration'
-import {Time, TimeUnit, reduce_time_object, units} from '../functions/time_parsing'
+import {Time, TimeUnit, display_time_string, reduce_time_object, units} from '../functions/time_parsing'
 
 const RecipeAdderCard = forwardRef<HTMLAnchorElement,{
     index: number;
@@ -70,7 +70,7 @@ const RecipeCard = forwardRef<HTMLAnchorElement,{
         {(recipe.recipeIngredient || []).length} ingrédient
         {(recipe.recipeIngredient || []).length > 1 ? "s" : ""}
       </div>
-      <div>{`${reducedTime.mainTime} ${units[reducedTime.mainUnit ?? "none"]} ${reducedTime.secondaryTime ? `${reducedTime.secondaryTime} ${units[reducedTime.secondaryUnit ?? "none"]}` : ""}`}</div>
+      <div>{display_time_string(reducedTime)}</div>
     </Link>
   );
 });

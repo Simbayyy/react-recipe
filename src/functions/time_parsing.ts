@@ -51,6 +51,14 @@ export function reduce_time_object (time: any): Time {
     }
 }
 
+export function display_time_string (time:Time, short:boolean = false): string {
+    if (short) {
+        return `${time.mainTime}${units[time.mainUnit ?? "none"]}${time.secondaryTime ? `${time.secondaryTime}${units[time.secondaryUnit ?? "none"]}` : ""}`
+    } else {
+        return `${time.mainTime} ${units[time.mainUnit ?? "none"]} ${time.secondaryTime ? `${time.secondaryTime} ${units[time.secondaryUnit ?? "none"]}` : ""}`
+    }
+}
+
 export const units = {
     years:"an",
     months:"mois",

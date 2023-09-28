@@ -251,12 +251,59 @@ html {
   align-self: center;
 }
 
+.preptime__icon__spinny_knife {
+  animation: spin 10s linear infinite;
+  transform-origin: 50% 42%;
+}
+
+.preptime__icon__text {
+  font-size: 0.3rem;
+  text-anchor: middle;
+}
+
+.cooktime__icon__pan {
+  animation: grow 3s ease-in-out infinite alternate;
+}
+
+.totaltime__icon__spinny_hourglass {
+  animation: spinstop 3s ease-in-out infinite;
+  transform-origin: 50% 42%;
+}
+
+.time__icon {
+  width: 10rem;
+  height: 10rem;
+}
+
+
+@keyframes spinstop {
+  0% {
+      transform:rotate(0deg);
+  }
+  40%, 100% {
+      transform:rotate(360deg);
+  }
+}
+
 @keyframes spin {
-    from {
-        transform:rotate(0deg);
+  from {
+      transform:rotate(0deg);
+  }
+  to {
+      transform:rotate(360deg);
+  }
+}
+
+
+@keyframes grow {
+    0% {
+      transform:translate(-0.1rem,0);
     }
-    to {
-        transform:rotate(360deg);
+    20% {
+      transform:translate(0.15rem,0);
+    }
+    40% {
+      transform:translate(0rem,0);
     }
 }
 
@@ -321,15 +368,21 @@ html {
   font-weight: bold;
 }
 
+.content__recipes__recipe__link {
+  text-align: center;
+}
+
 .content__recipes__recipe__summary {
   display: flex;
+  flex-direction: row;
+  padding:1rem;
 }
 
 .recipe__ingredients {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  justify-content: center;
+  align-items: center;
 }
 
 .recipe__ingredients__ingredient {

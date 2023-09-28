@@ -4,12 +4,26 @@ import {
   RecipeSchema,
 } from "../functions/types";
 import { Ingredient } from "./Ingredient";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as td from 'tinyduration'
+import { Time, display_time_string, reduce_time_object } from "../functions/time_parsing";
+import { CookTime, PrepTime, TotalTime } from "./Icons";
 
 const Recipe: React.FunctionComponent<
   Record<string, never>
 > = (): React.ReactElement => {
+
+    const defaultTimeObject = {
+        mainTime: null,
+        mainUnit: null,
+        secondaryTime: null,
+        secondaryUnit: null,        
+    }
+
+    const [reducedTotalTime, setReducedTotalTime] = useState<Time>(defaultTimeObject)
+    const [reducedCookTime, setReducedCookTime] = useState<Time>(defaultTimeObject)
+    const [reducedPrepTime, setReducedPrepTime] = useState<Time>(defaultTimeObject)
+
   const { recipeId } = useParams();
   const data: null | { recipes: RecipeSchema[] } = useOutletContext();
 
@@ -23,11 +37,13 @@ const Recipe: React.FunctionComponent<
       data?.recipes.find((elt) => {
         return elt.id == recipeId;
       }) || undefined;
+    const totalTimeObject = td.parse(recipe?.totalTime ?? "")
+    setReducedTotalTime(reduce_time_object(totalTimeObject)) 
+    const prepTimeObject = td.parse(recipe?.prepTime ?? "")
+    setReducedPrepTime(reduce_time_object(prepTimeObject)) 
+    const cookTimeObject = td.parse(recipe?.cookTime ?? "")
+    setReducedCookTime(reduce_time_object(cookTimeObject)) 
   }, [recipeId]);
-
-  const totalTimeObject = td.parse(recipe?.totalTime ?? "")
-  const cookTimeObject = td.parse(recipe?.cookTime ?? "")
-  const prepTimeObject = td.parse(recipe?.prepTime ?? "")
 
   function renderIngredients(ingredients: IngredientType[]) {
     const ingredientComponents = ingredients.map((ingredient, index) => {
@@ -50,9 +66,9 @@ const Recipe: React.FunctionComponent<
             {recipe.url}
           </a>
           <div className="content__recipes__recipe__summary">
-            {(recipe.recipeIngredient || []).length} ingrédient
-            {(recipe.recipeIngredient || []).length > 1 ? "s" : ""},{" "}
-            {`${recipe.totalTime} ${recipe.totalTime}`}
+            {reducedPrepTime.mainTime ? <PrepTime className="recipe__preptime__icon time__icon" text={display_time_string(reducedPrepTime, true)} /> : ""}
+            {reducedCookTime.mainTime ? <CookTime className="recipe__cooktime__icon time__icon" text={display_time_string(reducedCookTime, true)} /> : ""}
+            {reducedTotalTime.mainTime ? <TotalTime className="recipe__totaltime__icon time__icon" text={display_time_string(reducedTotalTime, true)} /> : ""}
           </div>
           {renderIngredients(
             (recipe.recipeIngredient as IngredientType[]) || [],
