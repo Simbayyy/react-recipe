@@ -343,7 +343,7 @@ html {
 }
 
 .faulty__ingredient > .ingredient__name {
-  text-decoration: underline rgb(180, 0, 0);
+  border-bottom: #a00 0.2rem solid;
 }
 
 .faulty__ingredient > .ingredient__name:hover {

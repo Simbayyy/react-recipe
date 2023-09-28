@@ -1,8 +1,3 @@
-export interface Time {
-  time: Number;
-  unit: string;
-}
-
 export interface Ingredient {
   name: string;
   amount: number;
@@ -20,14 +15,6 @@ export interface IngredientRaw {
   high_confidence: boolean;
 }
 
-export interface RecipeType {
-  name: string;
-  url: string;
-  time: Time;
-  ingredients: Ingredient[];
-  id?: number;
-}
-
 export interface RecipeSchema {
   name: string;
   prepTime?: string;
@@ -40,30 +27,6 @@ export interface RecipeSchema {
   url?: string;
   recipeIngredient?: string[] | Ingredient[];
   id?: number;
-}
-
-export function isRecipe(recipe: RecipeType | object): recipe is RecipeType {
-  const recipeAs = recipe as RecipeType;
-  return (
-    recipeAs.name !== undefined &&
-    typeof recipeAs.name == "string" &&
-    recipeAs.url !== undefined &&
-    typeof recipeAs.url == "string" &&
-    recipeAs.time !== undefined &&
-    recipeAs.ingredients !== undefined &&
-    isTime(recipeAs.time) &&
-    areIngredients(recipeAs.ingredients)
-  );
-}
-
-function isTime(time: Time | object): time is Time {
-  const timeAs = time as Time;
-  return (
-    timeAs.time !== undefined &&
-    typeof timeAs.time == "number" &&
-    timeAs.unit !== undefined &&
-    typeof timeAs.unit == "string"
-  );
 }
 
 function areIngredients(ingredients: Ingredient[] | object[]): boolean {

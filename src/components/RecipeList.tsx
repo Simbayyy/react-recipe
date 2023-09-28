@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { RecipeType } from "../functions/types";
+import { RecipeSchema } from "../functions/types";
 import { RecipeAdderCard, RecipeCard } from "./RecipeCard";
 import { Outlet, useOutlet, useNavigate } from "react-router-dom";
 import React from "react";
@@ -7,7 +7,7 @@ import {Loading, Arrow} from './Icons'
 
 const Carousel: React.FunctionComponent<{
   data:{
-    recipe: RecipeType;
+    recipe: RecipeSchema;
     index: number;
   }[],
   name:string,
@@ -47,7 +47,7 @@ const Carousel: React.FunctionComponent<{
   const recipeAdder = (index:number) => <RecipeAdderCard index={index} fetchRecipe={fetchRecipe} active={!fetching} ref={index === activeCard ? activeRef : null}/>
 
   return <div className={`carousel__${name}`}>
-    <button onClick={() => setActiveCard((activeCard - 1 + maxCard) % (maxCard))} className={`carousel__${name}__button`}>
+    <button onClick={() => setActiveCard((activeCard + 1) % (maxCard))} className={`carousel__${name}__button`}>
       <Arrow className="carousel__button__arrow flipped"/>
     </button>
     <div className={`carousel__${name}__content`}>
@@ -63,14 +63,14 @@ const Carousel: React.FunctionComponent<{
             return <RecipeCard recipe={card.recipe} index={card.index + 1 + numItems} ref={null}/>
       }))}
     </div>
-    <button onClick={() => setActiveCard((activeCard + 1) % (maxCard))} className={`carousel__${name}__button`}>
+    <button onClick={() => setActiveCard((activeCard - 1 + maxCard) % (maxCard))} className={`carousel__${name}__button`}>
       <Arrow className="carousel__button__arrow"/>
     </button>
   </div>
 }
 
 const RecipeList: React.FunctionComponent = (): React.ReactElement => {
-  const [data, setData] = useState<null |{ recipes: RecipeType[] }>(null);
+  const [data, setData] = useState<null |{ recipes: RecipeSchema[] }>(null);
   const [loading, setLoading] = useState(true);
   const [fetching, setFetching] = useState(false);
   const [placeholderText, setPlaceholderText] = useState('Clique sur une recette pour en voir les détails')
@@ -98,7 +98,7 @@ const RecipeList: React.FunctionComponent = (): React.ReactElement => {
         setLoading(false)
       });
   }, []); // Empty dependency array ensures this effect runs only once on mount
-  function prepRecipes(data: null | { recipes: RecipeType[] }) {
+  function prepRecipes(data: null | { recipes: RecipeSchema[] }) {
     if (data) {
       const dataComponents = data.recipes
         .filter((elt) => {
@@ -106,7 +106,8 @@ const RecipeList: React.FunctionComponent = (): React.ReactElement => {
         })
         .map((element, index) => {
           return { recipe: element, index: index };
-        });
+        })
+        .reverse();
       return dataComponents;
     } else {
       return [];
