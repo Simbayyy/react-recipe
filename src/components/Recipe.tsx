@@ -8,18 +8,15 @@ import {
   display_time_string,
   reduce_time_object,
   Duration,
+  parseAndSetTime,
+  defaultTimeObject,
 } from "../functions/time_parsing";
 import { CookTime, PrepTime, TotalTime } from "./Icons";
 
 const Recipe: React.FunctionComponent<
   Record<string, never>
 > = (): React.ReactElement => {
-  const defaultTimeObject = {
-    mainTime: null,
-    mainUnit: null,
-    secondaryTime: null,
-    secondaryUnit: null,
-  };
+
 
   const [reducedTotalTime, setReducedTotalTime] =
     useState<Time>(defaultTimeObject);
@@ -36,17 +33,15 @@ const Recipe: React.FunctionComponent<
       return elt.id == recipeId;
     }) || undefined;
 
+
   useEffect(() => {
     recipe =
       data?.recipes.find((elt) => {
         return elt.id == recipeId;
       }) || undefined;
-    const totalTimeObject = td.parse(recipe?.totalTime ?? "") as Duration;
-    setReducedTotalTime(reduce_time_object(totalTimeObject));
-    const prepTimeObject = td.parse(recipe?.prepTime ?? "") as Duration;
-    setReducedPrepTime(reduce_time_object(prepTimeObject));
-    const cookTimeObject = td.parse(recipe?.cookTime ?? "") as Duration;
-    setReducedCookTime(reduce_time_object(cookTimeObject));
+    parseAndSetTime(recipe, 'totalTime', setReducedTotalTime)
+    parseAndSetTime(recipe, 'prepTime', setReducedPrepTime)
+    parseAndSetTime(recipe, 'cookTime', setReducedCookTime)
   }, [recipeId]);
 
   function renderIngredients(ingredients: IngredientType[]) {
