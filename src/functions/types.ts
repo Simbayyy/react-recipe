@@ -10,6 +10,7 @@ export interface Ingredient {
   carbohydrates: number;
   fiber: number;
   iron: number;
+  sodium: number;
   lipid: number;
   magnesium: number;
   protein: number;
@@ -39,7 +40,7 @@ export interface RecipeSchema {
 }
 
 export interface Nutrient {
-  name: "lipid" | "energy" | "protein" | "fiber" | "iron" | "magnesium" | "carbohydrates" | "zinc" | "calcium"   
+  name: "lipid" | "energy" | "protein" | "fiber" | "iron" | "magnesium" | "carbohydrates" | "zinc" | "calcium" | "sodium"
   display_name:string,
   unit:string,
 }
@@ -73,6 +74,11 @@ export const nutrientList: Nutrient[] = [
   {
     name:'calcium',
     display_name:'Calcium',
+    unit:'mg',
+  },
+  {
+    name:'sodium',
+    display_name:'Sodium',
     unit:'mg',
   },
   {

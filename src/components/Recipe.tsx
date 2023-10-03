@@ -12,6 +12,7 @@ import {
   defaultTimeObject,
 } from "../functions/time_parsing";
 import { CookTime, PrepTime, TotalTime } from "./Icons";
+import { getConversionFactor } from "../functions/unit_conversion";
 
 const Recipe: React.FunctionComponent<
   Record<string, never>
@@ -59,7 +60,7 @@ const Recipe: React.FunctionComponent<
       return {
         name:elt.display_name,
         unit:elt.unit,
-        value:Number((ingredients.map((ingredient) => {return ingredient[elt.name] * Number(ingredient.amount) / 10000}).reduce((a,b) => {return a+b}, 0)/1000).toPrecision(3))
+        value:Number((ingredients.map((ingredient) => {return ingredient[elt.name] * Number(ingredient.amount) * getConversionFactor(ingredient.unit) / 10000}).reduce((a,b) => {return a+b}, 0)/1000).toPrecision(3))
       }
     })
     const nutritionComponents = nutrientComponents.map((elt) => {return <div key={elt.name} className="recipe__nutrition__item"><div className="recipe__nutrient__name">{`${elt.name}`}</div><div className="recipe__nutrient__quantity">&nbsp;{`: ${elt.value} ${elt.unit}`}</div></div>});
