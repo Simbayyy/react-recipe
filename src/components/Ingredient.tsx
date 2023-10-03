@@ -28,7 +28,7 @@ const Ingredient: React.FunctionComponent<{
         )}`}
       </div>
       <div className="ingredient__quantity">
-        {amount_100 !== 0 ? ` : ${amount_corrected} ${ingredient.unit}` : ''}
+        &nbsp;{amount_100 !== 0 ? `: ${amount_corrected} ${ingredient.unit}` : ''}
       </div>
     </div>
   );
