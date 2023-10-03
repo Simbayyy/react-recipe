@@ -18,6 +18,8 @@ import {
 } from "../functions/time_parsing";
 import { CookTime, PrepTime, TotalTime } from "./Icons";
 import { getConversionFactor } from "../functions/unit_conversion";
+import { Toggle } from "./Toggle";
+import { parsePortion } from "../functions/portion_parsing";
 
 const Recipe: React.FunctionComponent<
   Record<string, never>
@@ -28,6 +30,12 @@ const Recipe: React.FunctionComponent<
     useState<Time>(defaultTimeObject);
   const [reducedPrepTime, setReducedPrepTime] =
     useState<Time>(defaultTimeObject);
+  const [faultyToggle, setFaultyToggle] =
+    useState<boolean>(false);
+  const [portionToggle, setPortionToggle] =
+    useState<boolean>(false);
+  const [recipePortions, setRecipePortions] =
+    useState<number>(1);
 
   const { recipeId } = useParams();
   const data: null | { recipes: RecipeSchema[] } = useOutletContext();
@@ -42,10 +50,14 @@ const Recipe: React.FunctionComponent<
       data?.recipes.find((elt) => {
         return elt.id == recipeId;
       }) || undefined;
+    
+    setRecipePortions(parsePortion(recipe))
+
     parseAndSetTime(recipe, "totalTime", setReducedTotalTime);
     parseAndSetTime(recipe, "prepTime", setReducedPrepTime);
     parseAndSetTime(recipe, "cookTime", setReducedCookTime);
   }, [recipeId]);
+
 
   function renderIngredients(ingredients: IngredientType[]) {
     const ingredientComponents = ingredients.map((ingredient, index) => {
@@ -70,12 +82,15 @@ const Recipe: React.FunctionComponent<
         value: Number(
           (
             ingredients
+              .filter((ingredient) => {
+                return faultyToggle ? ingredient.high_confidence === true : true
+              })
               .map((ingredient) => {
                 return (
-                  (ingredient[elt.name] *
+                  ((ingredient[elt.name] *
                     Number(ingredient.amount) *
                     getConversionFactor(ingredient.unit)) /
-                  10000
+                  10000) / (portionToggle ? recipePortions : 1)
                 );
               })
               .reduce((a, b) => {
@@ -116,6 +131,7 @@ const Recipe: React.FunctionComponent<
           >
             {recipe.url}
           </a>
+          <div className="content__recipes__recipe__portions">{recipePortions !== 1 ? `Cette recette donne ${recipePortions} parts` : ""}</div>
           <div className="content__recipes__recipe__summary">
             {reducedPrepTime.mainTime ? (
               <PrepTime
@@ -142,7 +158,21 @@ const Recipe: React.FunctionComponent<
               ""
             )}
           </div>
-          <div className="recipe__content__lists">
+          <div className="recipe__toggles">
+          <Toggle 
+              className="recipe__toggles__faulty" 
+              toggled={faultyToggle}
+              setToggled={setFaultyToggle}
+              text={"Ignorer les ingrédients aux données incertaines"}
+            />
+            {recipePortions !== 1 && <Toggle 
+              className="recipe__toggles__portions" 
+              toggled={portionToggle}
+              setToggled={setPortionToggle}
+              text={"Afficher la nutrition par portion du plat"}
+            />}
+          </div>
+          <div className={`recipe__content__lists ${faultyToggle ? 'faulty__toggle' : ''}`}>
             {renderIngredients(
               (recipe.recipeIngredient as IngredientType[]) || [],
             )}
