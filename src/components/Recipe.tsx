@@ -1,5 +1,10 @@
 import { useParams, useOutletContext } from "react-router-dom";
-import { Ingredient as IngredientType, Nutrient, RecipeSchema, nutrientList } from "../functions/types";
+import {
+  Ingredient as IngredientType,
+  Nutrient,
+  RecipeSchema,
+  nutrientList,
+} from "../functions/types";
 import { Ingredient } from "./Ingredient";
 import React, { useEffect, useState } from "react";
 import * as td from "tinyduration";
@@ -17,8 +22,6 @@ import { getConversionFactor } from "../functions/unit_conversion";
 const Recipe: React.FunctionComponent<
   Record<string, never>
 > = (): React.ReactElement => {
-
-
   const [reducedTotalTime, setReducedTotalTime] =
     useState<Time>(defaultTimeObject);
   const [reducedCookTime, setReducedCookTime] =
@@ -34,40 +37,70 @@ const Recipe: React.FunctionComponent<
       return elt.id == recipeId;
     }) || undefined;
 
-
   useEffect(() => {
     recipe =
       data?.recipes.find((elt) => {
         return elt.id == recipeId;
       }) || undefined;
-    parseAndSetTime(recipe, 'totalTime', setReducedTotalTime)
-    parseAndSetTime(recipe, 'prepTime', setReducedPrepTime)
-    parseAndSetTime(recipe, 'cookTime', setReducedCookTime)
+    parseAndSetTime(recipe, "totalTime", setReducedTotalTime);
+    parseAndSetTime(recipe, "prepTime", setReducedPrepTime);
+    parseAndSetTime(recipe, "cookTime", setReducedCookTime);
   }, [recipeId]);
 
   function renderIngredients(ingredients: IngredientType[]) {
     const ingredientComponents = ingredients.map((ingredient, index) => {
       return Ingredient({ ingredient, index });
     });
-    return <div className="recipe__ingredients">
-      <div className="recipe__section__title">Ingrédients</div>
-      {ingredientComponents}
-    </div>;
+    return (
+      <div className="recipe__ingredients">
+        <div className="recipe__section__title">Ingrédients</div>
+        {ingredientComponents}
+      </div>
+    );
   }
 
-  function renderNutrition(ingredients: IngredientType[], nutrients: Nutrient[]) {
+  function renderNutrition(
+    ingredients: IngredientType[],
+    nutrients: Nutrient[],
+  ) {
     const nutrientComponents = nutrients.map((elt) => {
       return {
-        name:elt.display_name,
-        unit:elt.unit,
-        value:Number((ingredients.map((ingredient) => {return ingredient[elt.name] * Number(ingredient.amount) * getConversionFactor(ingredient.unit) / 10000}).reduce((a,b) => {return a+b}, 0)/1000).toPrecision(3))
-      }
-    })
-    const nutritionComponents = nutrientComponents.map((elt) => {return <div key={elt.name} className="recipe__nutrition__item"><div className="recipe__nutrient__name">{`${elt.name}`}</div><div className="recipe__nutrient__quantity">&nbsp;{`: ${elt.value} ${elt.unit}`}</div></div>});
-    return <div className="recipe__nutrition">
-      <div className="recipe__section__title">Nutriments</div>
-      {nutritionComponents}
-    </div>;
+        name: elt.display_name,
+        unit: elt.unit,
+        value: Number(
+          (
+            ingredients
+              .map((ingredient) => {
+                return (
+                  (ingredient[elt.name] *
+                    Number(ingredient.amount) *
+                    getConversionFactor(ingredient.unit)) /
+                  10000
+                );
+              })
+              .reduce((a, b) => {
+                return a + b;
+              }, 0) / 1000
+          ).toPrecision(3),
+        ),
+      };
+    });
+    const nutritionComponents = nutrientComponents.map((elt) => {
+      return (
+        <div key={elt.name} className="recipe__nutrition__item">
+          <div className="recipe__nutrient__name">{`${elt.name}`}</div>
+          <div className="recipe__nutrient__quantity">
+            &nbsp;{`: ${elt.value} ${elt.unit}`}
+          </div>
+        </div>
+      );
+    });
+    return (
+      <div className="recipe__nutrition">
+        <div className="recipe__section__title">Nutriments</div>
+        {nutritionComponents}
+      </div>
+    );
   }
 
   function displayRecipe(recipe: undefined | RecipeSchema) {
@@ -113,8 +146,11 @@ const Recipe: React.FunctionComponent<
             {renderIngredients(
               (recipe.recipeIngredient as IngredientType[]) || [],
             )}
-            {renderNutrition((recipe.recipeIngredient as IngredientType[]) || [], nutrientList)}
-        </div>
+            {renderNutrition(
+              (recipe.recipeIngredient as IngredientType[]) || [],
+              nutrientList,
+            )}
+          </div>
         </div>
       );
     } else {

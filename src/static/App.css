@@ -395,7 +395,8 @@ html {
   padding: 1rem;
 }
 
-.recipe__ingredients, .recipe__nutrition {
+.recipe__ingredients,
+.recipe__nutrition {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -403,13 +404,15 @@ html {
   align-items: center;
 }
 
-.recipe__ingredients__ingredient, .recipe__nutrition__item {
+.recipe__ingredients__ingredient,
+.recipe__nutrition__item {
   padding: 5px;
   text-align: center;
   display: flex;
 }
 
-.ingredient__name, .recipe__nutrient__name {
+.ingredient__name,
+.recipe__nutrient__name {
   font-weight: bold;
 }
 
