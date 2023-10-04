@@ -1,4 +1,4 @@
-import { useParams, useOutletContext } from "react-router-dom";
+import { useParams, useOutletContext, useNavigate } from "react-router-dom";
 import {
   Ingredient as IngredientType,
   Nutrient,
@@ -45,6 +45,8 @@ const Recipe: React.FunctionComponent<
       return elt.id == recipeId;
     }) || undefined;
 
+  const navigate = useNavigate()
+
   useEffect(() => {
     recipe =
       data?.recipes.find((elt) => {
@@ -52,6 +54,7 @@ const Recipe: React.FunctionComponent<
       }) || undefined;
     
     setRecipePortions(parsePortion(recipe))
+    if (recipe === undefined) {navigate("/recipes")}
 
     parseAndSetTime(recipe, "totalTime", setReducedTotalTime);
     parseAndSetTime(recipe, "prepTime", setReducedPrepTime);
