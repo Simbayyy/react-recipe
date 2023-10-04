@@ -72,19 +72,21 @@ const Carousel: React.FunctionComponent<{
               />
             );
           })
-          .concat(maxCard > 1 ? [recipeAdder(maxCard)] : [])
+          .concat(maxCard >= numItems ? [recipeAdder(maxCard)] : [])
           .concat(
-            data.slice(0, numItems).map((card) => {
-              return (
-                <RecipeCard
-                  key={card.index + 1 + numItems}
-                  recipe={card.recipe}
-                  index={card.index + 1 + numItems}
-                  ref={null}
-                  extraClass={'recipeId' in recipeId && recipeId.recipeId === (card.index + 1).toString() ? 'content__inactive__sender' : ""}
-                />
-              );
-            }),
+            maxCard >= numItems 
+            ? data.slice(0, numItems).map((card) => {
+                return (
+                  <RecipeCard
+                    key={card.index + 1 + numItems}
+                    recipe={card.recipe}
+                    index={card.index + 1 + numItems}
+                    ref={null}
+                    extraClass={'recipeId' in recipeId && recipeId.recipeId === (card.index + 1).toString() ? 'content__inactive__sender' : ""}
+                  />
+                );
+              })
+            : []
           )}
       </div>
       <button
