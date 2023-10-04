@@ -71,8 +71,9 @@ const RecipeCard = forwardRef<
     recipe: RecipeSchema;
     index: number;
     ref?: MutableRefObject<HTMLAnchorElement | null>;
+    extraClass?:string;
   }
->(({ recipe, index }, ref): React.ReactElement => {
+>(({ recipe, index, extraClass }, ref ): React.ReactElement => {
   const [reducedTime, setReducedTime] = useState<Time>({
     mainTime: null,
     mainUnit: null,
@@ -87,7 +88,7 @@ const RecipeCard = forwardRef<
     <Link
       to={`${recipe.id}` || "."}
       key={index}
-      className="content__recipes__card"
+      className={`content__recipes__card ${extraClass !== undefined ? extraClass : ''}`}
       ref={ref}
     >
       <div className="content__recipe__card__name">{recipe.name}</div>
