@@ -14,6 +14,7 @@ import {
   Duration,
   parseAndSetTime,
 } from "../functions/time_parsing";
+import { Loading } from "./Icons";
 
 const RecipeAdderCard = forwardRef<
   HTMLAnchorElement,
@@ -47,7 +48,7 @@ const RecipeAdderCard = forwardRef<
         value={url}
         onChange={handleUrlChange}
       />
-      <button
+      {active ? <button
         onClick={() => {
           active
             ? fetchRecipe(url).then(() => {
@@ -58,7 +59,7 @@ const RecipeAdderCard = forwardRef<
         className="recipe__adder__sender"
       >
         Chercher
-      </button>
+      </button> : <Loading className="addercard__loading"/>}
     </a>
   );
 });
@@ -71,8 +72,9 @@ const RecipeCard = forwardRef<
     recipe: RecipeSchema;
     index: number;
     ref?: MutableRefObject<HTMLAnchorElement | null>;
+    extraClass?:string;
   }
->(({ recipe, index }, ref): React.ReactElement => {
+>(({ recipe, index, extraClass }, ref ): React.ReactElement => {
   const [reducedTime, setReducedTime] = useState<Time>({
     mainTime: null,
     mainUnit: null,
@@ -87,7 +89,7 @@ const RecipeCard = forwardRef<
     <Link
       to={`${recipe.id}` || "."}
       key={index}
-      className="content__recipes__card"
+      className={`content__recipes__card ${extraClass !== undefined ? extraClass : ''}`}
       ref={ref}
     >
       <div className="content__recipe__card__name">{recipe.name}</div>

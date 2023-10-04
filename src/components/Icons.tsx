@@ -7,7 +7,7 @@ export const Loading: React.FunctionComponent<{
     <svg
       width="15mm"
       height="15mm"
-      className={`svg ${className || ""}`}
+      className={`svg spinning ${className || ""}`}
       version="1.1"
       viewBox="0 0 15 15"
       xmlns="http://www.w3.org/2000/svg"

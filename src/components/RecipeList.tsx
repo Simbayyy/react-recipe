@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { RecipeSchema } from "../functions/types";
 import { RecipeAdderCard, RecipeCard } from "./RecipeCard";
-import { Outlet, useOutlet, useNavigate } from "react-router-dom";
+import { Outlet, useOutlet, useNavigate, useParams } from "react-router-dom";
 import React from "react";
 import { Loading, Arrow } from "./Icons";
 
@@ -17,6 +17,7 @@ const Carousel: React.FunctionComponent<{
   const [activeCard, setActiveCard] = useState(0);
   const [numItems, setNumItems] = useState(5);
   const activeRef = useRef<null | HTMLAnchorElement>(null);
+  const recipeId = useParams()
 
   const width = window.innerWidth;
   useEffect(() => {
@@ -67,21 +68,25 @@ const Carousel: React.FunctionComponent<{
                 recipe={card.recipe}
                 index={card.index + 1}
                 ref={card.index + 1 === activeCard ? activeRef : null}
+                extraClass={'recipeId' in recipeId && recipeId.recipeId === (card.recipe.id ?? -1).toString() ? 'content__inactive__sender' : ""}
               />
             );
           })
-          .concat(maxCard > 1 ? [recipeAdder(maxCard)] : [])
+          .concat(maxCard >= numItems ? [recipeAdder(maxCard)] : [])
           .concat(
-            data.slice(0, numItems).map((card) => {
-              return (
-                <RecipeCard
-                  key={card.index + 1 + numItems}
-                  recipe={card.recipe}
-                  index={card.index + 1 + numItems}
-                  ref={null}
-                />
-              );
-            }),
+            maxCard >= numItems 
+            ? data.slice(0, numItems).map((card) => {
+                return (
+                  <RecipeCard
+                    key={card.index + 1 + numItems}
+                    recipe={card.recipe}
+                    index={card.index + 1 + numItems}
+                    ref={null}
+                    extraClass={'recipeId' in recipeId && recipeId.recipeId === (card.recipe.id ?? -1).toString() ? 'content__inactive__sender' : ""}
+                  />
+                );
+              })
+            : []
           )}
       </div>
       <button

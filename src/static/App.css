@@ -245,7 +245,15 @@ html {
 
 .content__loading {
   max-height: 20vh;
+  justify-self: center;
+  align-self: center;
+}
+.spinning {
   animation: spin 1s linear infinite;
+}
+
+.addercard__loading {
+  max-height: 4rem;
   justify-self: center;
   align-self: center;
 }
