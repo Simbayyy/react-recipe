@@ -14,6 +14,7 @@ import {
   Duration,
   parseAndSetTime,
 } from "../functions/time_parsing";
+import { Loading } from "./Icons";
 
 const RecipeAdderCard = forwardRef<
   HTMLAnchorElement,
@@ -47,7 +48,7 @@ const RecipeAdderCard = forwardRef<
         value={url}
         onChange={handleUrlChange}
       />
-      <button
+      {active ? <button
         onClick={() => {
           active
             ? fetchRecipe(url).then(() => {
@@ -58,7 +59,7 @@ const RecipeAdderCard = forwardRef<
         className="recipe__adder__sender"
       >
         Chercher
-      </button>
+      </button> : <Loading className="addercard__loading"/>}
     </a>
   );
 });

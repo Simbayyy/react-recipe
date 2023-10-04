@@ -68,7 +68,7 @@ const Carousel: React.FunctionComponent<{
                 recipe={card.recipe}
                 index={card.index + 1}
                 ref={card.index + 1 === activeCard ? activeRef : null}
-                extraClass={'recipeId' in recipeId && recipeId.recipeId === (card.index + 1).toString() ? 'content__inactive__sender' : ""}
+                extraClass={'recipeId' in recipeId && recipeId.recipeId === (card.recipe.id ?? -1).toString() ? 'content__inactive__sender' : ""}
               />
             );
           })
@@ -82,7 +82,7 @@ const Carousel: React.FunctionComponent<{
                     recipe={card.recipe}
                     index={card.index + 1 + numItems}
                     ref={null}
-                    extraClass={'recipeId' in recipeId && recipeId.recipeId === (card.index + 1).toString() ? 'content__inactive__sender' : ""}
+                    extraClass={'recipeId' in recipeId && recipeId.recipeId === (card.recipe.id ?? -1).toString() ? 'content__inactive__sender' : ""}
                   />
                 );
               })
