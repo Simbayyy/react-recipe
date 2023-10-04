@@ -307,7 +307,6 @@ html {
 
 .recipe__content__lists {
   display: flex;
-  padding: 2rem;
 }
 
 @media (max-width: 700px) {
@@ -395,7 +394,8 @@ html {
   padding: 1rem;
 }
 
-.recipe__ingredients, .recipe__nutrition {
+.recipe__ingredients,
+.recipe__nutrition {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -403,20 +403,54 @@ html {
   align-items: center;
 }
 
-.recipe__ingredients__ingredient, .recipe__nutrition__item {
+.recipe__ingredients__ingredient,
+.recipe__nutrition__item {
   padding: 5px;
   text-align: center;
   display: flex;
 }
 
-.ingredient__name, .recipe__nutrient__name {
+.ingredient__name,
+.recipe__nutrient__name {
   font-weight: bold;
-}
-
-.faulty__ingredient > .ingredient__name {
-  border-bottom: #a00 0.2rem solid;
 }
 
 .faulty__ingredient > .ingredient__name:hover {
   cursor: help;
+}
+
+.toggle__button {
+  border:none;
+  background:none;
+  animation: 0.2s ease-in-out;
+}
+
+.recipe__toggle__faulty__switch {
+  width:7rem;
+}
+
+.toggle__button {
+  display: flex;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+.toggle__button > div {
+  align-self: center;
+}
+
+.null__fdc_id, .dimensionless {
+  color: #666;
+  font-style: italic;
+  border-bottom: #a00 0.2rem solid;
+}
+
+.content__recipes__recipe__portions {
+  font-size: 2.2rem;
+  padding: 0.5rem;
+}
+
+.faulty__toggle .faulty__ingredient > .ingredient__text {
+  color: #666;
+  font-style: italic;
 }

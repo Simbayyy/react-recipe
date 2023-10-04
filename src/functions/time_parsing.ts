@@ -1,5 +1,5 @@
 import { RecipeSchema } from "./types";
-import * as td from 'tinyduration'
+import * as td from "tinyduration";
 
 export type TimeUnit =
   | null
@@ -25,7 +25,7 @@ export type Duration = {
   minutes: number;
   seconds: number;
   none: number;
-}
+};
 
 export function reduce_time_object(time: Duration): Time {
   const keys: TimeUnit[] = [
@@ -83,22 +83,27 @@ export const defaultTimeObject = {
   secondaryUnit: null,
 };
 
-export function parseAndSetTime (recipe: RecipeSchema | undefined, timeKey: "totalTime" | "prepTime" | "cookTime", timeSetter: React.Dispatch<React.SetStateAction<Time>>) {
-  if (recipe !== undefined 
-    && timeKey in recipe 
-    && recipe[timeKey] !== ""
-    && recipe[timeKey] !== undefined)
-      {
-        let timeString = recipe[timeKey] as string
-        try {
-          let time = td.parse(timeString) as Duration;
-          timeSetter(reduce_time_object(time));
-        } catch (e) {
-          timeSetter(defaultTimeObject);
-        }
-      } else {
-        timeSetter(defaultTimeObject);
-      }
+export function parseAndSetTime(
+  recipe: RecipeSchema | undefined,
+  timeKey: "totalTime" | "prepTime" | "cookTime",
+  timeSetter: React.Dispatch<React.SetStateAction<Time>>,
+) {
+  if (
+    recipe !== undefined &&
+    timeKey in recipe &&
+    recipe[timeKey] !== "" &&
+    recipe[timeKey] !== undefined
+  ) {
+    let timeString = recipe[timeKey] as string;
+    try {
+      let time = td.parse(timeString) as Duration;
+      timeSetter(reduce_time_object(time));
+    } catch (e) {
+      timeSetter(defaultTimeObject);
+    }
+  } else {
+    timeSetter(defaultTimeObject);
+  }
 }
 
 export function display_time_string(

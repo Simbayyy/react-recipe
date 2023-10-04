@@ -80,7 +80,7 @@ const RecipeCard = forwardRef<
     secondaryUnit: null,
   });
   useEffect(() => {
-    parseAndSetTime(recipe, 'totalTime', setReducedTime)
+    parseAndSetTime(recipe, "totalTime", setReducedTime);
   }, []);
 
   return (
@@ -95,7 +95,7 @@ const RecipeCard = forwardRef<
         {(recipe.recipeIngredient || []).length} ingrédient
         {(recipe.recipeIngredient || []).length > 1 ? "s" : ""}
       </div>
-      <div>{reducedTime.mainTime ? display_time_string(reducedTime) : ''}</div>
+      <div>{reducedTime.mainTime ? display_time_string(reducedTime) : ""}</div>
     </Link>
   );
 });
