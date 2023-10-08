@@ -471,6 +471,10 @@ html {
   font-style: italic;
 }
 
+.faulty__ingredient > .ingredient__text {
+  color: #444;
+}
+
 .recipe__frontpage {
   display: flex;
   flex: auto;

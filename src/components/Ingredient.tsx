@@ -8,7 +8,7 @@ const Ingredient: React.FunctionComponent<{
 }> = ({ ingredient, index }): React.ReactElement => {
   const amount_100 = Number(ingredient.amount);
   const amount_corrected = amount_100 / 100;
-  const conversionFactor = getConversionFactor(ingredient.unit)
+  const conversionFactor = getConversionFactor(ingredient.unit, ingredient.name_en ?? "")
 
   return (
     <div
