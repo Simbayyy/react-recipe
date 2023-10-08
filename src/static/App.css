@@ -576,19 +576,19 @@ html {
 }
 
 .cake__top {
-  animation: slide 2s ease-out 0s;
+  animation: slide 2.0s ease-out;
   transform: matrix(1,0.1,0,1,0,0);
   width:20%;
 }
 
 .cake__middle {
-  animation: slide 1s ease-out 0s;
+  animation: slide 1.0s ease-out;
   transform: matrix(1,0.1,0,1,0,0);
   width:70%;
 }
 
 .cake__bottom {
-  animation: slide 1.5s ease-out 0s;
+  animation: slide 1.5s ease-out;
   transform: matrix(1,0.1,0,1,0,0);
   width:50%;
 }
