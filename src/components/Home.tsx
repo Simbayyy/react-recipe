@@ -1,5 +1,7 @@
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate, useOutlet } from "react-router-dom";
 import React from "react";
+import { FrontPage } from "./FrontPage";
+import { Cake } from "./Icons";
 
 export const Home: React.FunctionComponent<{
   user: string;
@@ -8,6 +10,7 @@ export const Home: React.FunctionComponent<{
   setAdmin: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({ user, admin, setUser, setAdmin }): React.ReactElement => {
   const navigate = useNavigate();
+  const outlet = useOutlet();
 
   const logout = () => {
     fetch(
@@ -26,7 +29,7 @@ export const Home: React.FunctionComponent<{
 
   const logInComponents = [
     <Link key={1} to="/" className="home__header__title">
-      Ceci est un site, ici est son logo
+      <Cake className="home__header__logo" />
     </Link>,
     <Link key={2} to="recipes" className="home__header__link">
       {" "}
@@ -67,10 +70,18 @@ export const Home: React.FunctionComponent<{
         : [],
     );
 
+  const footerComponents = [
+    <div className="fooddatacentral__quote"> Données de FoodData Central : U.S. Department of Agrigulture, Agricultural Research Service, FoodData Central, 2019. <a href="fdc.nal.usda.gov">fdc.nal.usda.gov</a></div>,
+    <a className="home__footer__link" href="https://github.com/Simbayyy/react-recipe/"> Repo du frontend React </a>,
+    <a className="home__footer__link" href="https://github.com/Simbayyy/noderecipe/"> Repo du backend Node </a>,
+    <a href="https://sbaillet.com" className="home__footer__link"> Un site de Simon Baillet </a>
+  ]
+
   return (
     <div className="home">
-      <div className="home__header">{logInComponents}</div>
-      <Outlet />
+      {[<div key={"header"} className="home__header">{logInComponents}</div>,
+      (outlet && <Outlet />) || <FrontPage />,
+      <div key={"footer"} className="home__footer">{footerComponents}</div>]}
     </div>
   );
 };
