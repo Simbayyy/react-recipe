@@ -92,14 +92,14 @@ const Recipe: React.FunctionComponent<
                 return (
                   ((ingredient[elt.name] *
                     Number(ingredient.amount) *
-                    getConversionFactor(ingredient.unit)) /
+                    getConversionFactor(ingredient.unit, ingredient.name_en ?? "")) /
                   10000) / (portionToggle ? recipePortions : 1)
                 );
               })
               .reduce((a, b) => {
                 return a + b;
               }, 0) / 1000
-          ).toPrecision(3),
+          ).toPrecision(2),
         ),
       };
     });
