@@ -78,9 +78,9 @@ const Carousel: React.FunctionComponent<{
             ? data.slice(0, numItems).map((card) => {
                 return (
                   <RecipeCard
-                    key={card.index + 1 + numItems}
+                    key={card.index + 2 + numItems}
                     recipe={card.recipe}
-                    index={card.index + 1 + numItems}
+                    index={card.index + 2 + numItems}
                     ref={null}
                     extraClass={'recipeId' in recipeId && recipeId.recipeId === (card.recipe.id ?? -1).toString() ? 'content__inactive__sender' : ""}
                   />
