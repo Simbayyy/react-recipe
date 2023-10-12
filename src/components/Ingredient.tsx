@@ -10,12 +10,23 @@ const Ingredient: React.FunctionComponent<{
   const amount_corrected = amount_100 / 100;
   const conversionFactor = getConversionFactor(ingredient.unit, ingredient.name_en ?? "")
   const [amount, setAmount] = useState<number>(amount_corrected)
+  const [name, setName] = useState<string>(`${ingredient.name.charAt(0).toUpperCase()}${ingredient.name.slice(
+    1,
+  )}`)
 
   const handleAmountChange = (e: React.SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
     setAmount(Number(target.value.replace(/\D/g, "")));
-    ingredient.amount = Number(target.value.replace(/\d/, "")) * 100
+    ingredient.amount = Number(target.value.replace(/\D/g, "")) * 100
   };
+
+  const handleNameChange = (e: React.SyntheticEvent) => {
+    const target = e.target as HTMLInputElement;
+    setName(target.value)
+    ingredient.name = target.value
+  };
+
+  let isEdit = location.pathname.match(/edit/) 
 
   return (
     <div
@@ -29,14 +40,26 @@ const Ingredient: React.FunctionComponent<{
         ? ""
         : "Le serveur n'est pas certain d'avoir les bonnes données pour le calcul des paramètres"}`}
     >
-      <div
+      {isEdit 
+       ? <div
+          className="ingredient__name ingredient__text"
+          >
+            <input 
+              className="ingredient__name__edit"
+              value={name}
+              type="text"
+              onChange={handleNameChange}
+              />
+          {`\u00A0:`}
+        </div>
+        : <div
         className="ingredient__name ingredient__text"
       >
         {`${ingredient.name.charAt(0).toUpperCase()}${ingredient.name.slice(
           1,
-        )}\u00A0:\u00A0`}
-      </div>
-      {location.pathname.match(/search/) 
+        )}\u00A0:`}
+      </div>}
+      {isEdit
         ? <div className="ingredient__edit__right_side"><input 
         type="text" 
         className="ingredient__quantity ingredient__text ingredient__edit__amount"
@@ -50,7 +73,7 @@ const Ingredient: React.FunctionComponent<{
       </div></div>  
       : <div className="ingredient__quantity ingredient__text">
         &nbsp;
-        {amount_100 !== 0 ? `${amount_corrected} ${ingredient.unit}` : ""}
+        {amount_100 !== 0 ? `${amount_corrected}\u00A0${ingredient.unit}` : ""}
       </div>}
     </div>
   );

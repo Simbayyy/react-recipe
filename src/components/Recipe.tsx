@@ -63,7 +63,7 @@ const Recipe: React.FunctionComponent<
 
   function renderIngredients(ingredients: IngredientType[]) {
     const ingredientComponents = ingredients.map((ingredient, index) => {
-      return Ingredient({ ingredient, index });
+      return <Ingredient ingredient={ingredient} index={index} />;
     });
     return (
       <div className="recipe__ingredients">
@@ -73,10 +73,15 @@ const Recipe: React.FunctionComponent<
     );
   }
 
+  let isEdit = location.pathname.match(/edit/)
+
   function renderNutrition(
     ingredients: IngredientType[],
     nutrients: Nutrient[],
   ) {
+    if (isEdit) {
+      return <div></div>
+    }
     const nutrientComponents = nutrients.map((elt) => {
       return {
         name: elt.display_name,
@@ -125,7 +130,6 @@ const Recipe: React.FunctionComponent<
       return (
         <div className="content__recipes__recipe">
           <div className="content__recipes__recipe__title">{recipe.name}</div>
-          <button onClick={() => {navigate("edit")}}>Editer</button>
           <a
             href={recipe.url}
             target="_blank"
@@ -174,6 +178,20 @@ const Recipe: React.FunctionComponent<
               setToggled={setPortionToggle}
               text={"Afficher la nutrition par portion du plat"}
             />}
+            {isEdit
+            ? <button 
+                className="content__recipes__recipe__button edit__button__save" 
+                onClick={() => {navigate(".")}}
+                >
+                Enregistrer
+              </button>
+            : <button 
+                className="content__recipes__recipe__button" 
+                onClick={() => {navigate("edit")}}
+                >
+                Modifier
+              </button>}
+
           </div>
           <div className={`recipe__content__lists ${faultyToggle ? 'faulty__toggle' : ''}`}>
             {renderIngredients(
