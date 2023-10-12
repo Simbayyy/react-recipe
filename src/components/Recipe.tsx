@@ -149,17 +149,24 @@ const Recipe: React.FunctionComponent<
         headers: { "Content-Type": "application/json" },  
       }
     )
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status === 200) {
+          return res.json()
+        } else {
+          throw Error("Could not edit recipe")
+        }
+      })
       .then((res) => {
         data?.recipes.push(res)
         setIsSaving(false)
         navigate(`/recipes/${res.id}`)
       })
-      .catch((error) => {
-        console.error("Could not edit recipe:", error);
+      .catch(() => {
         setIsSaving(false);
-      });    
-      navigate(".")
+      })
+      .finally(() => {
+        navigate(".")
+      });
   }
 
   function displayRecipe(recipe: undefined | RecipeSchema) {

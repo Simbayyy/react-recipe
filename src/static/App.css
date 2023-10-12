@@ -5,6 +5,13 @@ html {
   scrollbar-width: thin;
 }
 
+
+@media (max-width: 600px) {
+  html {
+    font-size: 50%;
+  }
+}
+
 .home {
   flex: auto;
   background-color: #fafafa;
@@ -342,7 +349,7 @@ html {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-left: 1px grey solid;
+  border-left: 0.1rem grey solid;
   overflow-y: scroll;
   scrollbar-width: thin;
   overflow-x: hidden;
@@ -422,7 +429,7 @@ html {
 
 .recipe__ingredients__ingredient,
 .recipe__nutrition__item {
-  padding: 5px;
+  padding:0.3rem;
   text-align: center;
   display: flex;
   align-self: center;
