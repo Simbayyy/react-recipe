@@ -233,8 +233,8 @@ html {
 }
 
 .carousel__button__arrow {
-  max-width: 5rem;
-  padding: 0 1rem;
+  max-width: 4rem;
+  padding: 0 0rem;
   max-height: 15rem;
 }
 
@@ -398,6 +398,7 @@ html {
 .content__recipes__recipe__title {
   font-size: larger;
   font-weight: bold;
+  text-align: center;
 }
 
 .content__recipes__recipe__link {
@@ -424,6 +425,7 @@ html {
   padding: 5px;
   text-align: center;
   display: flex;
+  align-self: center;
 }
 
 .ingredient__name,
@@ -606,4 +608,17 @@ html {
 .home__header__logo {
   height: 8rem;
   width: 12rem;
+}
+
+.ingredient__edit__amount {
+  width: 6rem;
+  height: 2.5rem;
+  font-size: 1.8rem;
+  text-align: match-parent;
+}
+
+.ingredient__edit__right_side {
+  display:flex;
+  flex-direction:row;
+  align-items: center;
 }

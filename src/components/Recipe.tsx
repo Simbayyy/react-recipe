@@ -1,4 +1,4 @@
-import { useParams, useOutletContext, useNavigate } from "react-router-dom";
+import { useParams, useOutletContext, useNavigate, useLocation } from "react-router-dom";
 import {
   Ingredient as IngredientType,
   Nutrient,
@@ -11,8 +11,6 @@ import * as td from "tinyduration";
 import {
   Time,
   display_time_string,
-  reduce_time_object,
-  Duration,
   parseAndSetTime,
   defaultTimeObject,
 } from "../functions/time_parsing";
@@ -46,6 +44,7 @@ const Recipe: React.FunctionComponent<
     }) || undefined;
 
   const navigate = useNavigate()
+  const location = useLocation()
 
   useEffect(() => {
     recipe =
@@ -126,6 +125,7 @@ const Recipe: React.FunctionComponent<
       return (
         <div className="content__recipes__recipe">
           <div className="content__recipes__recipe__title">{recipe.name}</div>
+          <button onClick={() => {navigate("edit")}}>Editer</button>
           <a
             href={recipe.url}
             target="_blank"

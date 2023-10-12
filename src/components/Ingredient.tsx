@@ -1,5 +1,5 @@
 import { Ingredient as IngredientType } from "../functions/types";
-import React from "react";
+import React, { useState } from "react";
 import { getConversionFactor } from "../functions/unit_conversion";
 
 const Ingredient: React.FunctionComponent<{
@@ -9,6 +9,13 @@ const Ingredient: React.FunctionComponent<{
   const amount_100 = Number(ingredient.amount);
   const amount_corrected = amount_100 / 100;
   const conversionFactor = getConversionFactor(ingredient.unit, ingredient.name_en ?? "")
+  const [amount, setAmount] = useState<number>(amount_corrected)
+
+  const handleAmountChange = (e: React.SyntheticEvent) => {
+    const target = e.target as HTMLInputElement;
+    setAmount(Number(target.value.replace(/\D/g, "")));
+    ingredient.amount = Number(target.value.replace(/\d/, "")) * 100
+  };
 
   return (
     <div
@@ -27,12 +34,24 @@ const Ingredient: React.FunctionComponent<{
       >
         {`${ingredient.name.charAt(0).toUpperCase()}${ingredient.name.slice(
           1,
-        )}`}
+        )}\u00A0:\u00A0`}
       </div>
-      <div className="ingredient__quantity ingredient__text">
+      {location.pathname.match(/search/) 
+        ? <div className="ingredient__edit__right_side"><input 
+        type="text" 
+        className="ingredient__quantity ingredient__text ingredient__edit__amount"
+        id="amount"
+        value={amount}
+        onChange={handleAmountChange}
+        />
+        <div className="ingredient__quantity ingredient__text">
         &nbsp;
-        {amount_100 !== 0 ? `: ${amount_corrected} ${ingredient.unit}` : ""}
-      </div>
+        {`${ingredient.unit}`}
+      </div></div>  
+      : <div className="ingredient__quantity ingredient__text">
+        &nbsp;
+        {amount_100 !== 0 ? `${amount_corrected} ${ingredient.unit}` : ""}
+      </div>}
     </div>
   );
 };

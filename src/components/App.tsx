@@ -47,7 +47,9 @@ export function App(): React.ReactElement {
         }
       >
         <Route path="recipes" element={<RecipeList />}>
-          <Route path=":recipeId" element={<Recipe />} />
+          <Route path=":recipeId" element={<Recipe />}>
+            <Route path="edit"  /> 
+          </Route>
         </Route>
         <Route
           path="admin"
