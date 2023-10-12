@@ -34,6 +34,10 @@ const Recipe: React.FunctionComponent<
     useState<boolean>(false);
   const [recipePortions, setRecipePortions] =
     useState<number>(1);
+  const [addedIngredients, setAddedIngredients] =
+    useState<number>(0);
+  const [isSaving, setIsSaving] =
+    useState<boolean>(false);
 
   const { recipeId } = useParams();
   const data: null | { recipes: RecipeSchema[] } = useOutletContext();
@@ -63,12 +67,20 @@ const Recipe: React.FunctionComponent<
 
   function renderIngredients(ingredients: IngredientType[]) {
     const ingredientComponents = ingredients.map((ingredient, index) => {
-      return <Ingredient ingredient={ingredient} index={index} />;
+      return <Ingredient key={index} ingredient={ingredient} index={index} />;
     });
     return (
       <div className="recipe__ingredients">
         <div className="recipe__section__title">Ingrédients</div>
         {ingredientComponents}
+        {isEdit && <button key={"addbutton"} onClick={() => {
+          recipe?.recipeIngredient?.push({
+            amount:0,
+            unit:"",
+            name:"",
+          })
+          setAddedIngredients(addedIngredients+1)
+        }}> +</button>}
       </div>
     );
   }
@@ -94,7 +106,7 @@ const Recipe: React.FunctionComponent<
               })
               .map((ingredient) => {
                 return (
-                  ((ingredient[elt.name] *
+                  (((ingredient[elt.name] ?? 0) *
                     Number(ingredient.amount) *
                     getConversionFactor(ingredient.unit, ingredient.name_en ?? "")) /
                   10000) / (portionToggle ? recipePortions : 1)
@@ -123,6 +135,31 @@ const Recipe: React.FunctionComponent<
         {nutritionComponents}
       </div>
     );
+  }
+
+  function save() {
+    setIsSaving(true)
+    fetch(
+      `${
+        import.meta.env.VITE_DOMAIN != "build" ? "http://localhost:3000" : ""
+      }/api/edit`,
+      {
+        body: JSON.stringify({ recipe: recipe }),
+        method: "POST",
+        headers: { "Content-Type": "application/json" },  
+      }
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        data?.recipes.push(res)
+        setIsSaving(false)
+        navigate(`/recipes/${res.id}`)
+      })
+      .catch((error) => {
+        console.error("Could not edit recipe:", error);
+        setIsSaving(false);
+      });    
+      navigate(".")
   }
 
   function displayRecipe(recipe: undefined | RecipeSchema) {
@@ -181,7 +218,7 @@ const Recipe: React.FunctionComponent<
             {isEdit
             ? <button 
                 className="content__recipes__recipe__button edit__button__save" 
-                onClick={() => {navigate(".")}}
+                onClick={save}
                 >
                 Enregistrer
               </button>
@@ -195,10 +232,10 @@ const Recipe: React.FunctionComponent<
           </div>
           <div className={`recipe__content__lists ${faultyToggle ? 'faulty__toggle' : ''}`}>
             {renderIngredients(
-              (recipe.recipeIngredient as IngredientType[]) || [],
+              recipe.recipeIngredient || [],
             )}
             {renderNutrition(
-              (recipe.recipeIngredient as IngredientType[]) || [],
+              recipe.recipeIngredient || [],
               nutrientList,
             )}
           </div>

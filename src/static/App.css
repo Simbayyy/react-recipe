@@ -619,9 +619,8 @@ html {
 }
 
 .ingredient__edit__amount {
-  width: 5rem;
+  width: 4rem;
   height: 2rem;
-  font-size: 1.5rem;
   text-align: match-parent;
 }
 
@@ -641,6 +640,7 @@ html {
   height: 3rem;
   align-self: center;
   color: #eee;
+  margin-top: 1rem;
 }
 
 .edit__button__save {
@@ -656,7 +656,11 @@ html {
 
 .ingredient__name__edit {
   max-width: 40vw;
+}
+
+.ingredient__edit {
   height: 2rem;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   text-align: match-parent;
+  font-family: inherit;
 }
