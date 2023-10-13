@@ -82,7 +82,10 @@ const Recipe: React.FunctionComponent<
 
 
   function renderIngredients(ingredients: IngredientType[]) {
-    const ingredientComponents = ingredients.map((ingredient, index) => {
+    const nonNullIngredients = ingredients.filter((elt) => {
+      return isEdit || elt.amount !== 0 && elt.name !== ""
+    }) 
+    const ingredientComponents = nonNullIngredients.map((ingredient, index) => {
       return <Ingredient key={index} isSaving={isSaving} ingredient={ingredient} index={index} />;
     });
     return (
@@ -113,13 +116,16 @@ const Recipe: React.FunctionComponent<
     if (isEdit) {
       return <div></div>
     }
+    const nonNullIngredients = ingredients.filter((elt) => {
+      return elt.amount !== 0 && elt.name !== ""
+    }) 
     const nutrientComponents = nutrients.map((elt) => {
       return {
         name: elt.display_name,
         unit: elt.unit,
         value: Number(
           (
-            ingredients
+            nonNullIngredients
               .filter((ingredient) => {
                 return faultyToggle ? ingredient.high_confidence === true : true
               })
