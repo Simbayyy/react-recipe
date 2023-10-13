@@ -5,7 +5,8 @@ import { getConversionFactor } from "../functions/unit_conversion";
 const Ingredient: React.FunctionComponent<{
   ingredient: IngredientType;
   index: number;
-}> = ({ ingredient, index }): React.ReactElement => {
+  isSaving: boolean;
+}> = ({ ingredient, index, isSaving }): React.ReactElement => {
   const amount_100 = Number(ingredient.amount);
   const amount_corrected = amount_100 / 100;
   const conversionFactor = getConversionFactor(ingredient.unit, ingredient.name_en ?? "")
@@ -52,9 +53,10 @@ const Ingredient: React.FunctionComponent<{
           className="ingredient__name ingredient__text"
           >
             <input 
-              className="ingredient__name__edit ingredient__edit"
+              className="ingredient__name__edit ingredient__edit "
               value={name}
               type="text"
+              disabled={isSaving}
               onChange={handleNameChange}
               />
           {`\u00A0:`}
@@ -71,6 +73,7 @@ const Ingredient: React.FunctionComponent<{
         type="text" 
         className="ingredient__quantity ingredient__text ingredient__edit__amount ingredient__edit"
         value={amount}
+        disabled={isSaving}
         onChange={handleAmountChange}
         />
         &nbsp;
@@ -78,6 +81,7 @@ const Ingredient: React.FunctionComponent<{
         type="text" 
         className="ingredient__quantity ingredient__text ingredient__edit__amount ingredient__edit"
         value={unit}
+        disabled={isSaving}
         onChange={handleUnitChange}
         />
       </div>  

@@ -14,7 +14,7 @@ import {
   parseAndSetTime,
   defaultTimeObject,
 } from "../functions/time_parsing";
-import { CookTime, PrepTime, TotalTime } from "./Icons";
+import { CookTime, Loading, PrepTime, TotalTime } from "./Icons";
 import { getConversionFactor } from "../functions/unit_conversion";
 import { Toggle } from "./Toggle";
 import { parsePortion } from "../functions/portion_parsing";
@@ -38,6 +38,8 @@ const Recipe: React.FunctionComponent<
     useState<number>(0);
   const [isSaving, setIsSaving] =
     useState<boolean>(false);
+  const [name, setName] =
+    useState<string>("");
 
   const { recipeId } = useParams();
   const data: null | { recipes: RecipeSchema[] } = useOutletContext();
@@ -50,12 +52,26 @@ const Recipe: React.FunctionComponent<
   const navigate = useNavigate()
   const location = useLocation()
 
+  
+  const handleNameChange = (e: React.SyntheticEvent) => {
+    const target = e.target as HTMLInputElement;
+    let newName = target.value.replace(/\n/, "") 
+    setName(newName)
+    if (recipe !== undefined) {recipe.name = newName}
+  };
+  
+  const handlePortionChange = (e: React.SyntheticEvent) => {
+    const target = e.target as HTMLInputElement;
+    setRecipePortions(Number(target.value.replace(/\D/g, "")));
+    if (recipe !== undefined) {recipe.recipeYield = target.value.replace(/\D/g, "")}
+  };
+
   useEffect(() => {
     recipe =
       data?.recipes.find((elt) => {
         return elt.id == recipeId;
       }) || undefined;
-    
+    setName(recipe !== undefined ? recipe.name : "")
     setRecipePortions(parsePortion(recipe))
     if (recipe === undefined) {navigate("/recipes")}
 
@@ -67,13 +83,16 @@ const Recipe: React.FunctionComponent<
 
   function renderIngredients(ingredients: IngredientType[]) {
     const ingredientComponents = ingredients.map((ingredient, index) => {
-      return <Ingredient key={index} ingredient={ingredient} index={index} />;
+      return <Ingredient key={index} isSaving={isSaving} ingredient={ingredient} index={index} />;
     });
     return (
       <div className="recipe__ingredients">
         <div className="recipe__section__title">Ingrédients</div>
         {ingredientComponents}
-        {isEdit && <button key={"addbutton"} onClick={() => {
+        {isEdit && <button 
+          key={"addbutton"} 
+          className={"ingredient__adder__button"}
+          onClick={() => {
           recipe?.recipeIngredient?.push({
             amount:0,
             unit:"",
@@ -173,7 +192,16 @@ const Recipe: React.FunctionComponent<
     if (recipe) {
       return (
         <div className="content__recipes__recipe">
-          <div className="content__recipes__recipe__title">{recipe.name}</div>
+          {
+            isEdit 
+            ? <textarea 
+            className="content__recipes__recipe__title recipe__edit "
+            value={name}
+            disabled={isSaving}
+            onChange={handleNameChange}
+            />
+            : <div className="content__recipes__recipe__title">{recipe.name}</div>
+          }
           <a
             href={recipe.url}
             target="_blank"
@@ -182,7 +210,18 @@ const Recipe: React.FunctionComponent<
           >
             {recipe.url}
           </a>
-          <div className="content__recipes__recipe__portions">{recipePortions !== 1 ? `Cette recette donne ${recipePortions} parts` : ""}</div>
+          {
+            isEdit
+            ? <div className="content__recipes__recipe__portions">Cette recette donne 
+            <input 
+              className="content__recipes__recipe__portions__edit"
+              value={recipePortions}
+              type="number"
+              disabled={isSaving}
+              onChange={handlePortionChange}              
+              />
+             parts</div>
+            : <div className="content__recipes__recipe__portions">{recipePortions !== 1 ? `Cette recette donne ${recipePortions} parts` : ""}</div>}
           <div className="content__recipes__recipe__summary">
             {reducedPrepTime.mainTime ? (
               <PrepTime
@@ -224,10 +263,10 @@ const Recipe: React.FunctionComponent<
             />}
             {isEdit
             ? <button 
-                className="content__recipes__recipe__button edit__button__save" 
+                className={`content__recipes__recipe__button edit__button__save ${isSaving ? "edit__button__is__saving" : ""}`} 
                 onClick={save}
                 >
-                Enregistrer
+                {isSaving ? <Loading className="edit__button__loading"/> : "Enregistrer"}
               </button>
             : <button 
                 className="content__recipes__recipe__button" 

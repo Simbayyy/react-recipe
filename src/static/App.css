@@ -406,6 +406,16 @@ html {
   font-size: larger;
   font-weight: bold;
   text-align: center;
+  max-width: 90vw;
+  width: 50rem;
+}
+
+.content__recipes__recipe__portions__edit {
+  width: 6rem;
+  text-align: center;
+  margin: 0 1rem;
+  font-family: inherit;
+  font-size: inherit;
 }
 
 .content__recipes__recipe__link {
@@ -650,10 +660,19 @@ html {
   margin-top: 1rem;
 }
 
+.content__recipes__recipe__button:hover {
+  background-color: #ce5606;
+  cursor: pointer;
+}
+
 .edit__button__save {
   color: #e96006;
   background-color: #eee;
   border: 0.1rem solid #e96006;
+}
+
+.edit__button__save:hover {
+  background-color: #ddd;
 }
 
 .recipe__toggles {
@@ -670,4 +689,27 @@ html {
   font-size: 1.3rem;
   text-align: match-parent;
   font-family: inherit;
+}
+
+.edit__button__loading {
+  height: 1.8rem;
+}
+
+.recipe__adder__sender {
+  cursor: pointer;
+}
+
+.ingredient__adder__button {
+  border: none;
+  font-size: 2rem;
+  width: 15rem;
+  padding-bottom: 0.5rem;
+  border-radius: 1rem;
+  background-color: beige;
+  margin-top: 1rem;
+}
+
+.ingredient__adder__button:hover {
+  cursor: pointer;
+  background-color: rgb(218, 218, 193);
 }
