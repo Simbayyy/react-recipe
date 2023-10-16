@@ -7,17 +7,20 @@ import { Loading, Arrow } from "./Icons";
 
 const Carousel: React.FunctionComponent<{
   data: {
-    recipe: RecipeSchema;
-    index: number;
-  }[];
+    recipes: RecipeSchema[];
+  } | null;
+  setData: React.Dispatch<React.SetStateAction<{
+    recipes: RecipeSchema[];
+  } | null>>;
   name: string;
   fetching: boolean;
   fetchRecipe: (url: string) => Promise<boolean>;
-}> = ({ data, name, fetching, fetchRecipe }): React.ReactElement => {
+}> = ({ data, setData, name, fetching, fetchRecipe }): React.ReactElement => {
   const [activeCard, setActiveCard] = useState(0);
   const [numItems, setNumItems] = useState(5);
   const activeRef = useRef<null | HTMLAnchorElement>(null);
   const recipeId = useParams()
+  const navigate = useNavigate()
 
   const width = window.innerWidth;
   useEffect(() => {
@@ -38,16 +41,54 @@ const Carousel: React.FunctionComponent<{
     }
   }, [activeCard]);
 
-  const maxCard = data.length + 1;
+  const cleanedData = prepRecipes(data)
 
+  const maxCard = cleanedData.length + 1;
+
+  const newEmptyRecipe = {
+    name: "Nouvelle recette",
+    id:0,
+    recipeIngredient: [
+      {
+        name:"",
+        amount:0,
+        unit:""
+      }
+    ]
+  }
+
+  function addEmptyRecipe (): void {
+    data 
+    ? data.recipes.push(newEmptyRecipe)
+    : data = {recipes:[newEmptyRecipe]}
+    setData(data)
+    navigate('/recipes/0/edit')
+  } 
+  
+  function prepRecipes(data: null | { recipes: RecipeSchema[] }) {
+    if (data) {
+      const dataComponents = data.recipes
+        .filter((elt) => {
+          return elt.name != "";
+        })
+        .map((element, index) => {
+          return { recipe: element, index: index };
+        })
+        .reverse();
+      return dataComponents;
+    } else {
+      return [];
+    }
+  }
+  
   const recipeAdder = (index: number) => (
     <RecipeAdderCard
       index={index}
       key={index}
       fetchRecipe={fetchRecipe}
       active={!fetching}
-      ref={index === activeCard ? activeRef : null}
-    />
+      ref={index === activeCard ? activeRef : null} 
+      addEmptyRecipe={addEmptyRecipe}    />
   );
 
   return (
@@ -60,7 +101,7 @@ const Carousel: React.FunctionComponent<{
       </button>
       <div className={`carousel__${name}__content`}>
         {recipeAdder(0)}
-        {data
+        {cleanedData
           .map((card) => {
             return (
               <RecipeCard
@@ -75,7 +116,7 @@ const Carousel: React.FunctionComponent<{
           .concat(maxCard >= numItems ? [recipeAdder(maxCard)] : [])
           .concat(
             maxCard >= numItems 
-            ? data.slice(0, numItems).map((card) => {
+            ? cleanedData.slice(0, numItems).map((card) => {
                 return (
                   <RecipeCard
                     key={card.index + 2 + numItems}
@@ -130,21 +171,6 @@ const RecipeList: React.FunctionComponent = (): React.ReactElement => {
         setLoading(false);
       });
   }, []); // Empty dependency array ensures this effect runs only once on mount
-  function prepRecipes(data: null | { recipes: RecipeSchema[] }) {
-    if (data) {
-      const dataComponents = data.recipes
-        .filter((elt) => {
-          return elt.name != "";
-        })
-        .map((element, index) => {
-          return { recipe: element, index: index };
-        })
-        .reverse();
-      return dataComponents;
-    } else {
-      return [];
-    }
-  }
   const navigate = useNavigate();
 
   const fetchRecipe = async (url: string) => {
@@ -185,7 +211,8 @@ const RecipeList: React.FunctionComponent = (): React.ReactElement => {
       {(loading && <Loading className="content__loading" />) || [
         <Carousel
           key={0}
-          data={prepRecipes(data)}
+          data={data}
+          setData={setData}
           name={"recipes"}
           fetching={fetching}
           fetchRecipe={fetchRecipe}

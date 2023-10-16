@@ -21,10 +21,11 @@ const RecipeAdderCard = forwardRef<
   {
     index: number;
     fetchRecipe: (url: string) => Promise<boolean>;
+    addEmptyRecipe: () => void;
     ref?: MutableRefObject<HTMLAnchorElement | null>;
     active?: boolean;
   }
->(({ index, fetchRecipe, active }, ref): React.ReactElement => {
+>(({ index, fetchRecipe, addEmptyRecipe, active }, ref): React.ReactElement => {
   const [url, setUrl] = useState("");
 
   const handleUrlChange = (e: React.SyntheticEvent) => {
@@ -48,18 +49,30 @@ const RecipeAdderCard = forwardRef<
         value={url}
         onChange={handleUrlChange}
       />
-      {active ? <button
-        onClick={() => {
-          active
-            ? fetchRecipe(url).then(() => {
-                setUrl("");
-              })
-            : "";
-        }}
-        className="recipe__adder__sender"
-      >
-        Chercher
-      </button> : <Loading className="addercard__loading"/>}
+      {active 
+      ? <div className="recipe__adder__buttons">
+          <button
+            onClick={() => {
+              active
+                ? fetchRecipe(url).then(() => {
+                    setUrl("");
+                  })
+                : "";
+            }}
+            className="recipe__adder__sender"
+            >
+            Chercher
+          </button>
+          <button
+            onClick={() => {
+              if (active) {addEmptyRecipe()}
+            }}
+            className="recipe__adder__sender"
+          >
+            Nouvelle recette vide
+          </button>
+        </div> 
+        : <Loading className="addercard__loading"/>}
     </a>
   );
 });

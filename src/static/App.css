@@ -1,5 +1,5 @@
 html {
-  font-size: 62.5%;
+  font-size: 58%;
   display: flex;
   overflow-x: hidden;
   scrollbar-width: thin;
@@ -395,7 +395,7 @@ html {
 .recipe__adder {
   border: none;
   background: none;
-  height: fit-content;
+  height: 7rem;
   outline: none;
   font-family: inherit;
   font-size: inherit;
@@ -695,7 +695,24 @@ html {
   height: 1.8rem;
 }
 
+.recipe__adder__buttons {
+  display: flex;
+  flex-direction: column;
+}
+
 .recipe__adder__sender {
+  background-color: #e96006;
+  font-size: 1.8rem;
+  padding: .3rem 1rem;
+  border: none;
+  border-radius: 1rem;
+  height: 3rem;
+  color: #eee;
+  margin-top: 1rem;
+}
+
+.recipe__adder__sender:hover {
+  background-color: #ce5606;
   cursor: pointer;
 }
 
