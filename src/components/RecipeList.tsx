@@ -47,6 +47,7 @@ const Carousel: React.FunctionComponent<{
 
   const newEmptyRecipe = {
     name: "Nouvelle recette",
+    url:'custom',
     id:0,
     recipeIngredient: [
       {
@@ -64,7 +65,7 @@ const Carousel: React.FunctionComponent<{
     setData(data)
     navigate('/recipes/0/edit')
   } 
-  
+
   function prepRecipes(data: null | { recipes: RecipeSchema[] }) {
     if (data) {
       const dataComponents = data.recipes

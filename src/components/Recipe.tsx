@@ -182,7 +182,13 @@ const Recipe: React.FunctionComponent<
         }
       })
       .then((res) => {
-        data?.recipes.push(res)
+        let newData = data || {recipes:[]}
+        newData.recipes.push(res)
+        if ('originalId' in res && typeof res.originalId == 'number') {
+              newData.recipes = newData.recipes.filter((elt) => {
+                return elt.id !== res.originalId
+              } )
+        }
         setIsSaving(false)
         navigate(`/recipes/${res.id}`)
       })
@@ -208,14 +214,14 @@ const Recipe: React.FunctionComponent<
             />
             : <div className="content__recipes__recipe__title">{recipe.name}</div>
           }
-          <a
+          {recipe.url !== 'custom' && <a
             href={recipe.url}
             target="_blank"
             rel="noreferrer"
             className="content__recipes__recipe__link"
           >
             {recipe.url}
-          </a>
+          </a>}
           {
             isEdit
             ? <div className="content__recipes__recipe__portions">Cette recette donne 
