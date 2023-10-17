@@ -59,10 +59,10 @@ export const FrontPage: React.FunctionComponent = ({}): React.ReactElement => {
         <div className="recipe__frontpage__header"> Fonctionnalités prochainement ajoutées</div>
         <div className="recipe__frontpage__upcoming recipe__frontpage__section">
         <div className="recipe__frontpage__functionality">
-                Édition des recettes 
+                Filtre de recherche pour les recettes 
             </div>
             <div className="recipe__frontpage__functionality">
-                Ajout de recette personnalisée 
+                Lecture des recettes à partir du texte d'un site
             </div>
             <div className="recipe__frontpage__functionality">
                 Accès aux recettes en langue étrangère  
