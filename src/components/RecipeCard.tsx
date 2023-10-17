@@ -105,7 +105,7 @@ const RecipeCard = forwardRef<
       className={`content__recipes__card ${extraClass !== undefined ? extraClass : ''}`}
       ref={ref}
     >
-      <div className="content__recipe__card__name">{recipe.name}</div>
+      <div className={`content__recipe__card__name ${recipe.id === 0 ? "text__italic" : `` }`}>{recipe.name}</div>
       <div>
         {(recipe.recipeIngredient || []).length} ingrédient
         {(recipe.recipeIngredient || []).length > 1 ? "s" : ""}
