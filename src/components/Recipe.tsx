@@ -74,6 +74,7 @@ const Recipe: React.FunctionComponent<
     setName(recipe !== undefined ? recipe.name : "")
     setRecipePortions(parsePortion(recipe))
     if (recipe === undefined) {navigate("/recipes")}
+    else if (recipeId === '0') {navigate('/recipes/0/edit')}
 
     parseAndSetTime(recipe, "totalTime", setReducedTotalTime);
     parseAndSetTime(recipe, "prepTime", setReducedPrepTime);
@@ -81,17 +82,25 @@ const Recipe: React.FunctionComponent<
   }, [recipeId]);
 
 
-  function renderIngredients(ingredients: IngredientType[]) {
-    const nonNullIngredients = ingredients.filter((elt) => {
-      return isEdit || elt.amount !== 0 && elt.name !== ""
-    }) 
-    const ingredientComponents = nonNullIngredients.map((ingredient, index) => {
-      return <Ingredient key={index} isSaving={isSaving} ingredient={ingredient} index={index} />;
+  function renderIngredients() {
+    if (recipe) {recipe.recipeIngredient = recipe?.recipeIngredient?.filter((elt) => {
+      return elt.amount !== 0 && elt.name !== ""
+    }) }
+    if (isEdit) {
+      recipe?.recipeIngredient?.push({
+        amount:0,
+        unit:"",
+        name:"",
+      })
+    } 
+    const ingredientComponents = recipe?.recipeIngredient?.map((ingredient, index) => {
+      return <Ingredient key={`${ingredient.name}_${ingredient.amount}_${index}`} isSaving={isSaving} ingredient={ingredient}/>;
     });
     return (
       <div className="recipe__ingredients">
         <div className="recipe__section__title">Ingrédients</div>
         {ingredientComponents}
+        
         {isEdit && <button 
           key={"addbutton"} 
           className={"ingredient__adder__button"}
@@ -186,7 +195,7 @@ const Recipe: React.FunctionComponent<
         newData.recipes.push(res)
         if ('originalId' in res && typeof res.originalId == 'number') {
               newData.recipes = newData.recipes.filter((elt) => {
-                return elt.id !== res.originalId
+                return elt.id !== res.originalId && elt.id !== 0
               } )
         }
         setIsSaving(false)
@@ -289,9 +298,7 @@ const Recipe: React.FunctionComponent<
 
           </div>
           <div className={`recipe__content__lists ${faultyToggle ? 'faulty__toggle' : ''}`}>
-            {renderIngredients(
-              recipe.recipeIngredient || [],
-            )}
+            {renderIngredients()}
             {renderNutrition(
               recipe.recipeIngredient || [],
               nutrientList,

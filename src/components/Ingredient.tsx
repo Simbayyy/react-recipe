@@ -4,9 +4,8 @@ import { getConversionFactor } from "../functions/unit_conversion";
 
 const Ingredient: React.FunctionComponent<{
   ingredient: IngredientType;
-  index: number;
   isSaving: boolean;
-}> = ({ ingredient, index, isSaving }): React.ReactElement => {
+}> = ({ ingredient, isSaving }): React.ReactElement => {
   const amount_100 = Number(ingredient.amount);
   const amount_corrected = amount_100 / 100;
   const conversionFactor = getConversionFactor(ingredient.unit, ingredient.name_en ?? "")
@@ -38,7 +37,6 @@ const Ingredient: React.FunctionComponent<{
 
   return (
     <div
-      key={index}
       className={`recipe__ingredients__ingredient 
       ${ingredient.fdc_id === null ? "null__fdc_id" : ``}
       ${conversionFactor === 0 ? "dimensionless" : ``}
