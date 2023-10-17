@@ -49,20 +49,16 @@ const Carousel: React.FunctionComponent<{
     name: "Nouvelle recette",
     url:'custom',
     id:0,
-    recipeIngredient: [
-      {
-        name:"",
-        amount:0,
-        unit:""
-      }
-    ]
+    recipeIngredient: []
   }
 
   function addEmptyRecipe (): void {
-    data 
-    ? data.recipes.push(newEmptyRecipe)
-    : data = {recipes:[newEmptyRecipe]}
-    setData(data)
+    if (data?.recipes.filter(elt => {return elt.id === 0}).length === 0 ) {
+      data 
+      ? data.recipes.push(newEmptyRecipe)
+      : data = {recipes:[newEmptyRecipe]}
+      setData(data)  
+    }
     navigate('/recipes/0/edit')
   } 
 
@@ -193,7 +189,7 @@ const RecipeList: React.FunctionComponent = (): React.ReactElement => {
         if (data === null) {
           setData({ recipes: response });
         } else {
-          setData({ recipes: data.recipes.concat([response]) });
+          setData({ recipes: data.recipes.filter((elt) => {return elt.id != response.id}).concat([response]) });
         }
         navigate(`/recipes/${response.id}`);
       })
