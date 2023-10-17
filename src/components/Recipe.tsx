@@ -18,6 +18,7 @@ import { CookTime, Loading, PrepTime, TotalTime } from "./Icons";
 import { getConversionFactor } from "../functions/unit_conversion";
 import { Toggle } from "./Toggle";
 import { parsePortion } from "../functions/portion_parsing";
+import { nonNullIngredient } from "../functions/functions";
 
 const Recipe: React.FunctionComponent<
   Record<string, never>
@@ -83,9 +84,7 @@ const Recipe: React.FunctionComponent<
 
 
   function renderIngredients() {
-    if (recipe) {recipe.recipeIngredient = recipe?.recipeIngredient?.filter((elt) => {
-      return elt.amount !== 0 && elt.name !== ""
-    }) }
+    if (recipe) {recipe.recipeIngredient = recipe?.recipeIngredient?.filter(nonNullIngredient) }
     if (isEdit) {
       recipe?.recipeIngredient?.push({
         amount:0,
@@ -197,6 +196,10 @@ const Recipe: React.FunctionComponent<
               newData.recipes = newData.recipes.filter((elt) => {
                 return elt.id !== res.originalId && elt.id !== 0
               } )
+        } else {
+          newData.recipes = newData.recipes.filter((elt) => {
+            return elt.id !== 0
+          } )
         }
         setIsSaving(false)
         navigate(`/recipes/${res.id}`)

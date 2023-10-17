@@ -711,6 +711,10 @@ html {
   margin-top: 1rem;
 }
 
+.text__italic {
+  font-style: italic;
+}
+
 .recipe__adder__sender:hover {
   background-color: #ce5606;
   cursor: pointer;

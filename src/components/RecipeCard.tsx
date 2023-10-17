@@ -15,6 +15,7 @@ import {
   parseAndSetTime,
 } from "../functions/time_parsing";
 import { Loading } from "./Icons";
+import { nonNullIngredient } from "../functions/functions";
 
 const RecipeAdderCard = forwardRef<
   HTMLAnchorElement,
@@ -107,8 +108,8 @@ const RecipeCard = forwardRef<
     >
       <div className={`content__recipe__card__name ${recipe.id === 0 ? "text__italic" : `` }`}>{recipe.name}</div>
       <div>
-        {(recipe.recipeIngredient || []).length} ingrédient
-        {(recipe.recipeIngredient || []).length > 1 ? "s" : ""}
+        {(recipe.recipeIngredient || []).filter(nonNullIngredient).length} ingrédient
+        {(recipe.recipeIngredient || []).filter(nonNullIngredient).length > 1 ? "s" : ""}
       </div>
       <div>{reducedTime.mainTime ? display_time_string(reducedTime) : ""}</div>
     </Link>
