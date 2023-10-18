@@ -41,6 +41,10 @@ const Recipe: React.FunctionComponent<
     useState<boolean>(false);
   const [name, setName] =
     useState<string>("");
+  const [minutesPrep, setMinutesPrep] =
+    useState<number>(0)
+  const [minutesCook, setMinutesCook] =
+    useState<number>(0)
 
   const { recipeId } = useParams();
   const data: null | { recipes: RecipeSchema[] } = useOutletContext();
@@ -67,6 +71,20 @@ const Recipe: React.FunctionComponent<
     if (recipe !== undefined) {recipe.recipeYield = target.value.replace(/\D/g, "")}
   };
 
+  const handlePrepTimeChange = (e: React.SyntheticEvent) => {
+    const target = e.target as HTMLInputElement;
+    if (recipe !== undefined) {recipe.prepTime = `PT${Number(target.value.replace(/\D/g, ""))}M`}
+    if (recipe !== undefined) {recipe.totalTime = `PT${(Number(target.value.replace(/\D/g, "")) + minutesCook) ?? 0}M`}    
+    setMinutesPrep(Number(target.value.replace(/\D/g, "")));
+  }
+
+  const handleCookTimeChange = (e: React.SyntheticEvent) => {
+    const target = e.target as HTMLInputElement;
+    if (recipe !== undefined) {recipe.cookTime = `PT${Number(target.value.replace(/\D/g, ""))}M`}
+    if (recipe !== undefined) {recipe.totalTime = `PT${(minutesPrep + Number(target.value.replace(/\D/g, ""))) ?? 0}M`}   
+    setMinutesCook(Number(target.value.replace(/\D/g, "")));
+  }
+
   useEffect(() => {
     recipe =
       data?.recipes.find((elt) => {
@@ -84,14 +102,7 @@ const Recipe: React.FunctionComponent<
 
 
   function renderIngredients() {
-    if (recipe) {recipe.recipeIngredient = recipe?.recipeIngredient?.filter(nonNullIngredient) }
-    if (isEdit) {
-      recipe?.recipeIngredient?.push({
-        amount:0,
-        unit:"",
-        name:"",
-      })
-    } 
+    if (recipe) {recipe.recipeIngredient = recipe?.recipeIngredient?.filter((elt) => {return isEdit || nonNullIngredient(elt)}) }
     const ingredientComponents = recipe?.recipeIngredient?.map((ingredient, index) => {
       return <Ingredient key={`${ingredient.name}_${ingredient.amount}_${index}`} isSaving={isSaving} ingredient={ingredient}/>;
     });
@@ -247,30 +258,58 @@ const Recipe: React.FunctionComponent<
              parts</div>
             : <div className="content__recipes__recipe__portions">{recipePortions !== 1 ? `Cette recette donne ${recipePortions} parts` : ""}</div>}
           <div className="content__recipes__recipe__summary">
-            {reducedPrepTime.mainTime ? (
-              <PrepTime
-                className="recipe__preptime__icon time__icon"
-                text={display_time_string(reducedPrepTime, true)}
-              />
-            ) : (
-              ""
-            )}
-            {reducedCookTime.mainTime ? (
-              <CookTime
-                className="recipe__cooktime__icon time__icon"
-                text={display_time_string(reducedCookTime, true)}
-              />
-            ) : (
-              ""
-            )}
-            {reducedTotalTime.mainTime ? (
-              <TotalTime
-                className="recipe__totaltime__icon time__icon"
-                text={display_time_string(reducedTotalTime, true)}
-              />
-            ) : (
-              ""
-            )}
+            { !isEdit 
+            ? [reducedPrepTime.mainTime !== null &&
+                <PrepTime
+                  key="preptime"
+                  className="recipe__preptime__icon time__icon"
+                  text={display_time_string(reducedPrepTime, true)}
+                />
+              ,
+              reducedCookTime.mainTime !== null &&
+                <CookTime
+                  key="cooktime"
+                  className="recipe__cooktime__icon time__icon"
+                  text={display_time_string(reducedCookTime, true)}
+                />
+              ,
+              reducedTotalTime.mainTime !== null &&
+                <TotalTime
+                  key="totaltime"
+                  className="recipe__totaltime__icon time__icon"
+                  text={display_time_string(reducedTotalTime, true)}
+                />
+              ]
+            : [ <div className="recipe__time__selector__wrapper">
+                  <div className="time__edit__title">Temps de préparation</div>
+                  <div className="recipe__time__edit__minute">
+                    <input 
+                      type="number"
+                      className="recipe__time__selector"
+                      onChange={handlePrepTimeChange}
+                      value={minutesPrep}
+                      />
+                    <span>&nbsp;minutes</span>
+                    </div>
+                </div>,
+                <div className="recipe__time__selector__wrapper" >
+                  <div className="time__edit__title">Temps de cuisson</div>
+                  <div className="recipe__time__edit__minute">
+                    <input 
+                      type="number"
+                      className="recipe__time__selector"
+                      onChange={handleCookTimeChange}
+                      value={minutesCook}
+                      />
+                    <span>&nbsp;minutes</span>
+                  </div>
+                </div>,
+                <div className="recipe__time__selector__wrapper" >
+                  <div className="time__edit__title">Temps total</div>
+                  <div>{`${(recipe.totalTime !== "" && recipe.totalTime !== undefined ? recipe.totalTime : "0").replace(/\D/g, "")} min`}</div>
+                </div>,
+                ]
+            }
           </div>
           <div className="recipe__toggles">
           <Toggle 
