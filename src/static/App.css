@@ -1,8 +1,15 @@
 html {
-  font-size: 62.5%;
+  font-size: 58%;
   display: flex;
   overflow-x: hidden;
   scrollbar-width: thin;
+}
+
+
+@media (max-width: 600px) {
+  html {
+    font-size: 50%;
+  }
 }
 
 .home {
@@ -233,8 +240,8 @@ html {
 }
 
 .carousel__button__arrow {
-  max-width: 5rem;
-  padding: 0 1rem;
+  max-width: 4rem;
+  padding: 0 0rem;
   max-height: 15rem;
 }
 
@@ -342,7 +349,7 @@ html {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-left: 1px grey solid;
+  border-left: 0.1rem grey solid;
   overflow-y: scroll;
   scrollbar-width: thin;
   overflow-x: hidden;
@@ -388,7 +395,7 @@ html {
 .recipe__adder {
   border: none;
   background: none;
-  height: fit-content;
+  height: 7rem;
   outline: none;
   font-family: inherit;
   font-size: inherit;
@@ -398,6 +405,17 @@ html {
 .content__recipes__recipe__title {
   font-size: larger;
   font-weight: bold;
+  text-align: center;
+  max-width: 90vw;
+  width: 50rem;
+}
+
+.content__recipes__recipe__portions__edit {
+  width: 6rem;
+  text-align: center;
+  margin: 0 1rem;
+  font-family: inherit;
+  font-size: inherit;
 }
 
 .content__recipes__recipe__link {
@@ -421,14 +439,23 @@ html {
 
 .recipe__ingredients__ingredient,
 .recipe__nutrition__item {
-  padding: 5px;
+  padding:0.3rem;
   text-align: center;
   display: flex;
+  align-self: center;
+  justify-content: center;
 }
 
 .ingredient__name,
 .recipe__nutrient__name {
   font-weight: bold;
+  max-width: 50vw;
+  text-align: right;
+  padding-right: 0.5rem;
+}
+
+.ingredient__quantity {
+  align-self: center;
 }
 
 .faulty__ingredient > .ingredient__name:hover {
@@ -606,4 +633,124 @@ html {
 .home__header__logo {
   height: 8rem;
   width: 12rem;
+}
+
+.ingredient__edit__amount {
+  width: 4rem;
+  height: 2rem;
+  text-align: match-parent;
+}
+
+.ingredient__edit__right_side {
+  display:flex;
+  flex-direction:row;
+  align-items: center;
+}
+
+.content__recipes__recipe__button {
+  background-color: #e96006;
+  font-size: 1.8rem;
+  padding: 0.3rem 1rem;
+  border: none;
+  border-radius: 1rem;
+  width: 14rem;
+  height: 3rem;
+  align-self: center;
+  color: #eee;
+  margin-top: 1rem;
+}
+
+.content__recipes__recipe__button:hover {
+  background-color: #ce5606;
+  cursor: pointer;
+}
+
+.edit__button__save {
+  color: #e96006;
+  background-color: #eee;
+  border: 0.1rem solid #e96006;
+}
+
+.edit__button__save:hover {
+  background-color: #ddd;
+}
+
+.recipe__toggles {
+  display: flex;
+  flex-direction: column;
+}
+
+.ingredient__name__edit {
+  max-width: 40vw;
+}
+
+.ingredient__edit {
+  height: 2rem;
+  font-size: 1.3rem;
+  text-align: match-parent;
+  font-family: inherit;
+}
+
+.edit__button__loading {
+  height: 1.8rem;
+}
+
+.recipe__adder__buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.recipe__adder__sender {
+  background-color: #e96006;
+  font-size: 1.8rem;
+  padding: .3rem 1rem;
+  border: none;
+  border-radius: 1rem;
+  height: 3rem;
+  color: #eee;
+  margin-top: 1rem;
+}
+
+.text__italic {
+  font-style: italic;
+}
+
+.recipe__adder__sender:hover {
+  background-color: #ce5606;
+  cursor: pointer;
+}
+
+.ingredient__adder__button {
+  border: none;
+  font-size: 2rem;
+  width: 15rem;
+  padding-bottom: 0.5rem;
+  border-radius: 1rem;
+  background-color: beige;
+  margin-top: 1rem;
+}
+
+.ingredient__adder__button:hover {
+  cursor: pointer;
+  background-color: rgb(218, 218, 193);
+}
+
+.time__edit__title {
+  margin: 0.2rem 1rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.recipe__time__selector__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.recipe__time__selector {
+  width: 8rem;
+}
+
+.recipe__time__edit__minute {
+  display: flex;
 }

@@ -15,16 +15,18 @@ import {
   parseAndSetTime,
 } from "../functions/time_parsing";
 import { Loading } from "./Icons";
+import { nonNullIngredient } from "../functions/functions";
 
 const RecipeAdderCard = forwardRef<
   HTMLAnchorElement,
   {
     index: number;
     fetchRecipe: (url: string) => Promise<boolean>;
+    addEmptyRecipe: () => void;
     ref?: MutableRefObject<HTMLAnchorElement | null>;
     active?: boolean;
   }
->(({ index, fetchRecipe, active }, ref): React.ReactElement => {
+>(({ index, fetchRecipe, addEmptyRecipe, active }, ref): React.ReactElement => {
   const [url, setUrl] = useState("");
 
   const handleUrlChange = (e: React.SyntheticEvent) => {
@@ -48,18 +50,30 @@ const RecipeAdderCard = forwardRef<
         value={url}
         onChange={handleUrlChange}
       />
-      {active ? <button
-        onClick={() => {
-          active
-            ? fetchRecipe(url).then(() => {
-                setUrl("");
-              })
-            : "";
-        }}
-        className="recipe__adder__sender"
-      >
-        Chercher
-      </button> : <Loading className="addercard__loading"/>}
+      {active 
+      ? <div className="recipe__adder__buttons">
+          <button
+            onClick={() => {
+              active
+                ? fetchRecipe(url).then(() => {
+                    setUrl("");
+                  })
+                : "";
+            }}
+            className="recipe__adder__sender"
+            >
+            Chercher
+          </button>
+          <button
+            onClick={() => {
+              if (active) {addEmptyRecipe()}
+            }}
+            className="recipe__adder__sender"
+          >
+            Nouvelle recette vide
+          </button>
+        </div> 
+        : <Loading className="addercard__loading"/>}
     </a>
   );
 });
@@ -92,10 +106,10 @@ const RecipeCard = forwardRef<
       className={`content__recipes__card ${extraClass !== undefined ? extraClass : ''}`}
       ref={ref}
     >
-      <div className="content__recipe__card__name">{recipe.name}</div>
+      <div className={`content__recipe__card__name ${recipe.id === 0 ? "text__italic" : `` }`}>{recipe.name}</div>
       <div>
-        {(recipe.recipeIngredient || []).length} ingrédient
-        {(recipe.recipeIngredient || []).length > 1 ? "s" : ""}
+        {(recipe.recipeIngredient || []).filter(nonNullIngredient).length} ingrédient
+        {(recipe.recipeIngredient || []).filter(nonNullIngredient).length > 1 ? "s" : ""}
       </div>
       <div>{reducedTime.mainTime ? display_time_string(reducedTime) : ""}</div>
     </Link>

@@ -5,16 +5,16 @@ export interface Ingredient {
   name_en?: string;
   fdc_id?: number;
   high_confidence?: boolean;
-  energy: number;
-  calcium: number;
-  carbohydrates: number;
-  fiber: number;
-  iron: number;
-  sodium: number;
-  lipid: number;
-  magnesium: number;
-  protein: number;
-  zinc: number;
+  energy?: number;
+  calcium?: number;
+  carbohydrates?: number;
+  fiber?: number;
+  iron?: number;
+  sodium?: number;
+  lipid?: number;
+  magnesium?: number;
+  protein?: number;
+  zinc?: number;
 }
 
 export interface IngredientRaw {
@@ -35,7 +35,7 @@ export interface RecipeSchema {
   recipeCategory?: string | string[];
   recipeCuisine?: string | string[];
   url?: string;
-  recipeIngredient?: string[] | Ingredient[];
+  recipeIngredient?: Ingredient[];
   id?: number;
 }
 
