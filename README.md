@@ -1,70 +1,75 @@
-# Getting Started with Create React App
+# Apports Nutritionnels - Recipe Nutrition Analyzer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![GitHub License](https://img.shields.io/badge/license-Not%20Chosen-blue.svg)](LICENSE)
+[![GitHub Release](https://img.shields.io/badge/version-0.1.0-blue.svg)](https://github.com/Simbayyy/react-recipe/releases)
 
-## Available Scripts
+Apports Nutritionnels is a React app designed to fetch and compute nutrition facts for recipes from various blogs and sources.
 
-In the project directory, you can run:
+## Table of Contents
 
-### `npm start`
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Contributing](#contributing)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
+- [Contact](#contact)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Installation
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+To get started with Apports Nutritionnels, you'll need to have Node.js and npm (Node Package Manager) installed on your system. 
 
-### `npm test`
+1. Clone this repository to your local machine:
+   ```
+   git clone https://github.com/Simbayyy/react-recipe.git
+   cd YourRepo
+   ```
+2. Install project dependencies:
+   ```
+   npm install
+   ```
+3. Start the development server:
+   ```
+   npm start
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Usage
 
-### `npm run build`
+After following the installation steps, you can access the app by opening your web browser and navigating to `http://localhost:5173`. Here are some key features of Apports Nutritionnels:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Adding a Recipe from an URL:** Users can input a recipe URL, and the app will fetch and display its nutrition facts.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Creating a Recipe from Scratch:** Users can manually input ingredients and their quantities to create a new recipe.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Editing a Known Recipe:** Existing recipes can be edited and their nutrition facts recalculated.
 
-### `npm run eject`
+## Features
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Integration with various libraries and tools, including the backend Node API ([NodeRecipe](https://github.com/Simbayyy/node-recipe)) i18next for internationalization, React Router for navigation, and more.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Efficiently computes and displays nutrition facts for recipes.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Simple and user-friendly interface for adding and editing recipes.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Contributing
 
-## Learn More
+We welcome contributions to Apports Nutritionnels. If you'd like to contribute to this project, please follow our [Contribution Guidelines](CONTRIBUTING.md).
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## License
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The license for this project has not been chosen yet. Please check back for updates.
 
-### Code Splitting
+## Acknowledgments
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+We would like to acknowledge the following libraries and tools that have been instrumental in the development of this project:
 
-### Analyzing the Bundle Size
+- [i18next](https://www.i18next.com/)
+- [React Router](https://reactrouter.com/)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Contact
 
-### Making a Progressive Web App
+If you have questions, feedback, or want to report a bug, feel free to open an issue on our [GitHub repository](https://github.com/Simbayyy/react-recipe/issues).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[![Simbayyy](https://img.shields.io/badge/Find%20More-Projects-9cf)](https://github.com/Simbayyy)
